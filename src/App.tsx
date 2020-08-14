@@ -3,12 +3,7 @@ import { AddTask } from "./components/AddTask";
 import { TaskList } from "./components/TaskList";
 
 function App() {
-  const [tasks, setTasks] = useState<string[]>([
-    "item1...",
-    "item2...",
-    "item3...",
-    "item4...",
-  ]);
+  const [tasks, setTasks] = useState<string[]>([]);
 
   return (
     <>
