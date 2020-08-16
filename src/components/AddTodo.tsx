@@ -1,7 +1,7 @@
 import { useState } from "react";
 import React from "react";
-import { Todo } from "./TodoItem";
 import { saveTodoListToDatabase } from "../api";
+import { Todo } from "./TodoList";
 
 type AddTodoProps = {
   todoList: Todo[];

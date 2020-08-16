@@ -1,6 +1,6 @@
 import * as firebase from "firebase";
 import { userId } from "./firebase";
-import { Todo } from "./components/TodoItem";
+import { Todo } from "./components/TodoList";
 
 export function saveTodoListToDatabase(todoList: Todo[]) {
   return firebase
