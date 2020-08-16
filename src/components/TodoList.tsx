@@ -1,7 +1,8 @@
 import React from "react";
+import { TodoItem, Todo } from "./TodoItem";
 
 type TodoListProps = {
-  todoList: string[];
+  todoList: Todo[];
 };
 export function TodoList({ todoList }: TodoListProps) {
   const isEmpty = todoList.length === 0;
@@ -12,8 +13,12 @@ export function TodoList({ todoList }: TodoListProps) {
         <p>You've finished all your tasks!</p>
       ) : (
         <ul>
-          {todoList.map((todo, index) => (
-            <li key={index}>{todo}</li>
+          {todoList.map((todo) => (
+            <TodoItem
+              text={todo.text}
+              uniqueId={todo.uniqueId}
+              key={todo.uniqueId}
+            />
           ))}
         </ul>
       )}

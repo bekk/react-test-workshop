@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { AddTodo } from "./components/AddTodo";
 import { TodoList } from "./components/TodoList";
-import { fetchTodoListFromDatabase, saveTodoListToDatabase } from "./api";
+import { fetchTodoListFromDatabase } from "./api";
+import { Todo } from "./components/TodoItem";
 
 function App() {
-  const [todoList, setTodoList] = useState<string[]>([]);
+  const [todoList, setTodoList] = useState<Todo[]>([]);
 
   useEffect(() => {
     async function fetchInitialTodoList() {
@@ -15,12 +16,6 @@ function App() {
     }
     fetchInitialTodoList();
   }, []);
-
-  useEffect(() => {
-    if (todoList.length > 0) {
-      saveTodoListToDatabase(todoList);
-    }
-  }, [todoList]);
 
   return (
     <>
