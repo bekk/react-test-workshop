@@ -1,18 +1,34 @@
-import React, { useState } from "react";
-import { AddTask } from "./components/AddTask";
-import { TaskList } from "./components/TaskList";
+import React, { useState, useEffect } from "react";
+import { AddTodo } from "./components/AddTodo";
+import { TodoList } from "./components/TodoList";
+import { fetchTodoListFromDatabase, saveTodoListToDatabase } from "./api";
 
 function App() {
-  const [tasks, setTasks] = useState<string[]>([]);
-  //database.ref(`users/${username}/`).set({ tasks });
+  const [todoList, setTodoList] = useState<string[]>([]);
+
+  useEffect(() => {
+    async function fetchInitialTodoList() {
+      const todoList = await fetchTodoListFromDatabase();
+      if (todoList) {
+        setTodoList(todoList);
+      }
+    }
+    fetchInitialTodoList();
+  }, []);
+
+  useEffect(() => {
+    if (todoList.length > 0) {
+      saveTodoListToDatabase(todoList);
+    }
+  }, [todoList]);
 
   return (
     <>
       <h1>Simple to-do list</h1>
       Add things that you need to do here, and then remove them when you've
       solved them!
-      <TaskList tasks={tasks}></TaskList>
-      <AddTask tasks={tasks} setTasks={setTasks} />
+      <TodoList todoList={todoList}></TodoList>
+      <AddTodo todoList={todoList} setTodoList={setTodoList} />
     </>
   );
 }
