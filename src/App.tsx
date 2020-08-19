@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { AddTodo } from "./components/AddTodo";
 import { TodoList, Todo } from "./components/TodoList";
-import { fetchTodoListFromDatabase } from "./api";
+import { useFetchTodoList } from "./api";
 
 function App() {
   const [todoList, setTodoList] = useState<Todo[]>([]);
+  const { data } = useFetchTodoList();
 
   useEffect(() => {
-    async function fetchInitialTodoList() {
-      const todoList = await fetchTodoListFromDatabase();
-      if (todoList) {
-        setTodoList(todoList);
-      }
+    if (data) {
+      setTodoList(data.todoList);
     }
-    fetchInitialTodoList();
-  }, []);
+  }, [data]);
 
   return (
     <>

@@ -1,24 +1,22 @@
-import * as firebase from "firebase";
-import { userId } from "./firebase";
 import { Todo } from "./components/TodoList";
+import useSWR from "swr";
+
+const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export function saveTodoListToDatabase(todoList: Todo[]) {
-  return firebase
-    .database()
-    .ref("users/" + userId)
-    .set(todoList);
+  fetch("/todolist", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ todoList: todoList }),
+  });
 }
 
-export function fetchTodoListFromDatabase(): Promise<Todo[] | undefined> {
-  return firebase
-    .database()
-    .ref("users/" + userId)
-    .once("value")
-    .then((snapshot) => {
-      return snapshot.val() as Todo[];
-    })
-    .catch((error) => {
-      console.error("Could not fetch data from firestore database: ", error);
-      return undefined;
-    });
+type TodoListResponse = {
+  todoList: Todo[];
+};
+
+export function useFetchTodoList() {
+  return useSWR<TodoListResponse>("/todolist", fetcher);
 }

@@ -1,5 +1,10 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Backend
+
+In order to temporarily store the todo list we're using a very simple express server.
+The backend can be started by running the command `node ./server.js`.
+
 ## Available Scripts
 
 In the project directory, you can run:
