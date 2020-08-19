@@ -1,11 +1,8 @@
 const express = require("express");
-const path = require("path");
 const app = express();
 const bodyParser = require("body-parser");
 
-app.use(express.static(path.join(__dirname, "build")));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 let todoList = {
   todoList: [],
@@ -17,8 +14,7 @@ app.get("/todolist", function (req, res) {
 
 app.post("/todolist", function (request, response) {
   todoList = request.body;
-  console.log(request.body); // your JSON
-  response.send(request.body); // echo the result back
+  response.send();
 });
 
 const port = process.env.PORT || 8080;
