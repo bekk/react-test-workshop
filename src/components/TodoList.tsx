@@ -1,25 +1,20 @@
 import React from "react";
 import { TodoItem } from "./TodoItem";
-import { saveTodoListToDatabase } from "api";
 
 export type Todo = {
   text: string;
-  uniqueId: number;
+  id: number;
 };
 
 type TodoListProps = {
   todoList: Todo[];
-  setTodoList: (todoList: Todo[]) => void;
+  removeTodo: (id: number) => void;
 };
-export function TodoList({ todoList, setTodoList }: TodoListProps) {
+export function TodoList({ todoList, removeTodo }: TodoListProps) {
   const isEmpty = todoList.length === 0;
 
-  function deleteItem(uniqueId: number) {
-    const updatedList = todoList.filter(
-      (todoItem) => todoItem.uniqueId !== uniqueId
-    );
-    setTodoList(updatedList);
-    saveTodoListToDatabase(updatedList);
+  function deleteItem(id: number) {
+    removeTodo(id);
   }
 
   return (
@@ -30,7 +25,7 @@ export function TodoList({ todoList, setTodoList }: TodoListProps) {
       ) : (
         <ul>
           {todoList.map((todo) => (
-            <TodoItem todo={todo} deleteItem={deleteItem} key={todo.uniqueId} />
+            <TodoItem todo={todo} deleteItem={deleteItem} key={todo.id} />
           ))}
         </ul>
       )}

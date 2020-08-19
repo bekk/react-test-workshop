@@ -3,7 +3,7 @@ import { Todo } from "./TodoList";
 
 export type TodoItemProps = {
   todo: Todo;
-  deleteItem: (uniqueId: number) => void;
+  deleteItem: (id: number) => void;
 };
 
 export function TodoItem({ todo, deleteItem }: TodoItemProps) {
@@ -12,7 +12,7 @@ export function TodoItem({ todo, deleteItem }: TodoItemProps) {
       <li>{todo.text}</li>
       <button
         onClick={() => {
-          deleteItem(todo.uniqueId);
+          deleteItem(todo.id);
         }}
       >
         x

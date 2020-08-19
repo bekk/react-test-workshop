@@ -1,21 +1,16 @@
 import { useState } from "react";
 import React from "react";
 import { Todo } from "./TodoList";
-import { saveTodoListToDatabase } from "api";
 
 type AddTodoProps = {
-  todoList: Todo[];
-  setTodoList: (todoList: Todo[]) => void;
+  addTodo: (todo: Todo) => void;
 };
 
-export function AddTodo({ todoList, setTodoList }: AddTodoProps) {
+export function AddTodo({ addTodo }: AddTodoProps) {
   const [input, setInput] = useState("");
 
   function handleSubmit(e: React.FormEvent) {
-    const todo: Todo = { text: input, uniqueId: Math.random() };
-    const updatedTodoList = todoList.concat(todo);
-    setTodoList(updatedTodoList);
-    saveTodoListToDatabase(updatedTodoList);
+    addTodo({ text: input, id: Math.random() });
     setInput("");
     e.preventDefault();
   }
