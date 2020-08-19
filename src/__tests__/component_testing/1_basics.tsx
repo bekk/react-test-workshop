@@ -9,7 +9,7 @@ import { render } from "@testing-library/react";
 // 3. Check that the element returned by getByText is rendered in the document.
 
 test("renders a paragraph with the text 'Hello world'", () => {
-  // const { getByText } = render();
-  // const linkElement = getByText();
-  // expect(linkElement).toBeInTheDocument();
+  const { getByText } = render(<></>);
+  // const paragraphElement = getByText();
+  // expect(paragraphElement).toBeInTheDocument();
 });
