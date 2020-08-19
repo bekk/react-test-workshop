@@ -18,7 +18,7 @@ function App() {
       <h1>Simple to-do list</h1>
       Add things that you need to do here, and then remove them when you've
       solved them!
-      <TodoList todoList={todoList} setTodoList={setTodoList}></TodoList>
+      <TodoList todoList={todoList} setTodoList={setTodoList} />
       <AddTodo todoList={todoList} setTodoList={setTodoList} />
     </>
   );

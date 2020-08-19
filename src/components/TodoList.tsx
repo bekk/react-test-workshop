@@ -1,6 +1,6 @@
 import React from "react";
 import { TodoItem } from "./TodoItem";
-import { saveTodoListToDatabase } from "../api";
+import { saveTodoListToDatabase } from "api";
 
 export type Todo = {
   text: string;
