@@ -13,10 +13,6 @@ type TodoListProps = {
 export function TodoList({ todoList, removeTodo }: TodoListProps) {
   const isEmpty = todoList.length === 0;
 
-  function deleteItem(id: number) {
-    removeTodo(id);
-  }
-
   return (
     <>
       <h2>List:</h2>
@@ -25,7 +21,7 @@ export function TodoList({ todoList, removeTodo }: TodoListProps) {
       ) : (
         <ul>
           {todoList.map((todo) => (
-            <TodoItem todo={todo} deleteItem={deleteItem} key={todo.id} />
+            <TodoItem todo={todo} removeTodo={removeTodo} key={todo.id} />
           ))}
         </ul>
       )}

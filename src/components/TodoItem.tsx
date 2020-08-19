@@ -3,16 +3,16 @@ import { Todo } from "./TodoList";
 
 export type TodoItemProps = {
   todo: Todo;
-  deleteItem: (id: number) => void;
+  removeTodo: (id: number) => void;
 };
 
-export function TodoItem({ todo, deleteItem }: TodoItemProps) {
+export function TodoItem({ todo, removeTodo }: TodoItemProps) {
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       <li>{todo.text}</li>
       <button
         onClick={() => {
-          deleteItem(todo.id);
+          removeTodo(todo.id);
         }}
       >
         x
