@@ -9,8 +9,9 @@ export type TodoItemProps = {
 export function TodoItem({ todo, removeTodo }: TodoItemProps) {
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <li>{todo.text}</li>
+      <label htmlFor={`${todo.id}`}>{todo.text}</label>
       <button
+        id={`${todo.id}`}
         onClick={() => {
           removeTodo(todo.id);
         }}
