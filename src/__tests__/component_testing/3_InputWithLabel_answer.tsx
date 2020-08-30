@@ -1,8 +1,9 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import InputWithLabel from "components/InputWithLabel";
+import { toHaveNoViolations, axe } from "jest-axe";
 
-test("CustomInput should render label and input", () => {
+test("InputWithLabel should render label and input", () => {
   const { getByText, getByLabelText } = render(
     <InputWithLabel label="etikett" />
   );
@@ -14,7 +15,7 @@ test("CustomInput should render label and input", () => {
   expect(input).toBeInTheDocument();
 });
 
-test("CustomInput should change value when the input is changed", () => {
+test("InputWithLabel should change value when the input is changed", () => {
   const { getByLabelText } = render(
     <InputWithLabel label="Ananas eller banan på pizza?" />
   );
@@ -25,4 +26,13 @@ test("CustomInput should change value when the input is changed", () => {
 
   fireEvent.change(input, { target: { value: "ananas!" } });
   expect(input).toHaveValue("ananas!");
+});
+
+expect.extend(toHaveNoViolations);
+test("InputWithLabel should be accessible", async () => {
+  const { container } = render(
+    <InputWithLabel label="Is this component accessible?" />
+  );
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
 });
