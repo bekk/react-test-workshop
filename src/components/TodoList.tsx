@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { TodoItem } from "./TodoItem";
 
 export type Todo = {
@@ -10,7 +10,11 @@ type TodoListProps = {
   todoList: Todo[];
   removeTodo: (id: number) => void;
 };
-export function TodoList({ todoList, removeTodo }: TodoListProps) {
+
+export const TodoList: FunctionComponent<TodoListProps> = ({
+  todoList,
+  removeTodo,
+}) => {
   const isEmpty = todoList.length === 0;
 
   return (
@@ -27,4 +31,4 @@ export function TodoList({ todoList, removeTodo }: TodoListProps) {
       )}
     </>
   );
-}
+};

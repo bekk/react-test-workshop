@@ -8,6 +8,10 @@ let todoList = {
   todoList: [],
 };
 
+let tasksList = {
+  tasks: [],
+};
+
 let nbOfItemsInPreviousUpdate = 0;
 let totalItemsCreated = 0;
 let totalItemsDeleted = 0;
@@ -29,12 +33,23 @@ app.post("/todolist", function (request, response) {
   response.send();
 });
 
+// Tasks list
+app.get("/taskslist", function (req, res) {
+  //return res.send(tasksList);
+  return res.send({
+    tasks: [
+      {text: "Hello I'm dummy (from server)", id: "123459"}
+    ]
+  });
+});
+
+// Stats
 app.get("/stats/created", function (req, res) {
-  return res.json({created: `${totalItemsCreated}`});
+  return res.json({value: `${totalItemsCreated}`});
 });
 
 app.get("/stats/deleted", function (req, res) {
-  return res.json({deleted: `${totalItemsDeleted}`});
+  return res.json({value: `${totalItemsDeleted}`});
 });
 
 const port = process.env.PORT || 8080;
