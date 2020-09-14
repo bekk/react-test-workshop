@@ -1,11 +1,11 @@
 // TODO
 //  rename use Task instead of Todo
 
-export type Task = {
+export type Todo = {
   text: string;
   id: number;
 };
 
-export type Taskslist = {
-  tasks: Task[];
+export type Todolist = {
+  todoList: Todo[];
 };

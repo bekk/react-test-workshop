@@ -8,10 +8,6 @@ let todoList = {
   todoList: [],
 };
 
-let tasksList = {
-  tasks: [],
-};
-
 let nbOfItemsInPreviousUpdate = 0;
 let totalItemsCreated = 0;
 let totalItemsDeleted = 0;
@@ -33,15 +29,6 @@ app.post("/todolist", function (request, response) {
   response.send();
 });
 
-// Tasks list
-app.get("/taskslist", function (req, res) {
-  //return res.send(tasksList);
-  return res.send({
-    tasks: [
-      {text: "Hello I'm dummy (from server)", id: "123459"}
-    ]
-  });
-});
 
 // Stats
 app.get("/stats/created", function (req, res) {

@@ -1,26 +1,10 @@
-import { Todo } from "../components/TodoList";
 import {
   getRestStatus,
   RestResource,
   RestStatus,
-  RestTaskList,
+  RestTodolist,
 } from "./api-utils";
-import { Taskslist } from "../domain/Task";
-import useSWR from "swr/esm/use-swr";
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
-
-export function useFetchTodoList() {
-  return useSWR<TodoListResponse>("/todolist", fetcher);
-  /*return {
-    todoList: [
-      {
-        text: "A dummy todo",
-        id: 777
-      }
-    ]
-  };*/
-}
+import { Todo, Todolist } from "../domain/Todo";
 
 export function saveTodoListToDatabase(todoList: Todo[]) {
   fetch("/todolist", {
@@ -80,30 +64,8 @@ export const fetchNbOfDeletedTasks = async (): Promise<RestStatistic> => {
   };
 };
 
-/*
-export const fetchTasks = async (): Promise<RestResource<Taskslist>> => {
-  const response = await fetch("/taskslist", {
-    method: 'GET'
-  });
-
-  const restStatus = getRestStatus(response.status);
-
-  if (restStatus === RestStatus.Success) {
-    return {
-      status: RestStatus.Success,
-      data: await response.json().then((data) => {
-        return data;
-      }),
-    };
-  }
-  return {
-    status: restStatus,
-  };
-};
-*/
-
-const fetchTaskslist = async (): Promise<Taskslist> => {
-  const response = await fetch("/taskslist");
+const fetchTaskslist = async (): Promise<Todolist> => {
+  const response = await fetch("/todolist");
   const restStatus: RestStatus = getRestStatus(response.status);
 
   if (restStatus !== RestStatus.Success) {
@@ -117,7 +79,7 @@ const fetchTaskslist = async (): Promise<Taskslist> => {
   return await response.json();
 };
 
-export const fetchTaskListRestResource = async (): Promise<RestTaskList> => {
+export const fetchTodolistRestResource = async (): Promise<RestTodolist> => {
   try {
     const taskslist = await fetchTaskslist();
 

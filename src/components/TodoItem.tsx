@@ -1,5 +1,5 @@
 import React from "react";
-import { Todo } from "./TodoList";
+import { Todo } from "../domain/Todo";
 
 export type TodoItemProps = {
   todo: Todo;

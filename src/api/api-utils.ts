@@ -1,5 +1,5 @@
 // types and interfaces
-import { Taskslist } from "../domain/Task";
+import { Todolist } from "../domain/Todo";
 
 export enum RestStatus {
   NotLoadedYet = "NotLoadedYet",
@@ -38,4 +38,4 @@ export const getRestStatus = (responseStatus: number): RestStatus => {
   }
 };
 
-export type RestTaskList = RestResource<Taskslist>;
+export type RestTodolist = RestResource<Todolist>;

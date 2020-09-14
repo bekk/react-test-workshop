@@ -1,6 +1,6 @@
 import { useState } from "react";
 import React from "react";
-import { Todo } from "./TodoList";
+import { Todo } from "../domain/Todo";
 
 type AddTodoProps = {
   addTodo: (todo: Todo) => void;
