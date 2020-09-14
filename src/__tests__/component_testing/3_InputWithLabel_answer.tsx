@@ -24,8 +24,8 @@ test("InputWithLabel should change value when the input is changed", () => {
   expect(input).toBeInTheDocument();
   expect(input).toHaveValue("");
 
-  fireEvent.change(input, { target: { value: "ananas!" } });
-  expect(input).toHaveValue("ananas!");
+  fireEvent.change(input, { target: { value: "banan!" } });
+  expect(input).toHaveValue("banan!");
 });
 
 expect.extend(toHaveNoViolations);

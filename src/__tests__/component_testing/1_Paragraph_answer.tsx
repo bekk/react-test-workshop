@@ -3,7 +3,6 @@ import { render } from "@testing-library/react";
 
 // API documentation at https://testing-library.com/docs/dom-testing-library/api-queries
 
-// Oppgava 1
 test("paragraph renders with some text", () => {
   const { getByText } = render(
     <p>Velkommen / Välkommen / Velkommen / Tervetuloa / Velkominn</p>
