@@ -1,23 +1,28 @@
 import React, { FunctionComponent, useState } from "react";
 import { TasksProvider } from "./providers/TodolistContext";
-import { saveTodoListToDatabase } from "./api/api";
+import { createTodoRestResource, deleteTodoRestResource } from "./api/api";
 import { AddTodo } from "./components/AddTodo";
 import { Todo } from "./domain/Todo";
 import { TodoList } from "./components/TodoList";
+import { RestStatus } from "./api/api-utils";
 
 const App: FunctionComponent = () => {
   const [todoList, setTodoList] = useState<Todo[]>([]);
 
   const addTodo = (todo: Todo) => {
-    const updatedTodoList = todoList.concat(todo);
-    setTodoList(updatedTodoList);
-    saveTodoListToDatabase(updatedTodoList);
+    createTodoRestResource(todo).then((todolist) => {
+      if (todolist.status === RestStatus.Success) {
+        setTodoList(todolist.data.todoList);
+      }
+    });
   };
 
   const removeTodo = (id: number) => {
-    const updatedTodoList = todoList.filter((todoItem) => todoItem.id !== id);
-    setTodoList(updatedTodoList);
-    saveTodoListToDatabase(updatedTodoList);
+    deleteTodoRestResource(id).then((todolist) => {
+      if (todolist.status === RestStatus.Success) {
+        setTodoList(todolist.data.todoList);
+      }
+    });
   };
 
   return (

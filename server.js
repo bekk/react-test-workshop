@@ -16,6 +16,26 @@ app.get("/todolist", function (req, res) {
   return res.send(todoList);
 });
 
+app.post("/create/todo", function (request, response) {
+  let todo = request.body.todo;
+  todoList.todoList.push(todo);
+
+  totalItemsCreated++;
+  response.send(todoList);
+});
+
+app.post("/delete/todo", function (request, response) {
+  let id = request.body.id;
+
+  todoList.todoList = todoList.todoList.filter(function (todo) {
+    return todo.id !== id;
+  });
+
+  totalItemsDeleted++;
+  response.send(todoList);
+});
+
+
 app.post("/todolist", function (request, response) {
   todoList = request.body;
 
