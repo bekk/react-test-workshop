@@ -1,14 +1,14 @@
 import React, { FunctionComponent, useContext } from "react";
 import { TodoItem } from "./TodoItem";
-import { RestStatus, RestTodolist } from "../api/api-utils";
-import { todolistContext } from "../providers/TodolistContext";
+import { RestStatus } from "../api/api-utils";
+import {
+  todolistContext,
+  TodolistContextType,
+} from "../providers/TodolistContext";
 
-type TodoListProps = {
-  removeTodo: (id: number) => void;
-};
+export const TodoList: FunctionComponent = () => {
+  const { restTodolist } = useContext<TodolistContextType>(todolistContext);
 
-export const TodoList: FunctionComponent<TodoListProps> = ({ removeTodo }) => {
-  const restTodolist = useContext<RestTodolist>(todolistContext);
   const todos =
     restTodolist.status === RestStatus.Success
       ? restTodolist.data.todoList
@@ -23,7 +23,7 @@ export const TodoList: FunctionComponent<TodoListProps> = ({ removeTodo }) => {
       ) : (
         <ul>
           {todos.map((todo) => (
-            <TodoItem todo={todo} removeTodo={removeTodo} key={todo.id} />
+            <TodoItem todo={todo} key={todo.id} />
           ))}
         </ul>
       )}

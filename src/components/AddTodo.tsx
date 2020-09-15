@@ -1,13 +1,12 @@
-import { useState } from "react";
-import React from "react";
-import { Todo } from "../domain/Todo";
+import React, { useContext, useState } from "react";
 import InputWithLabel from "./InputWithLabel";
+import {
+  todolistContext,
+  TodolistContextType,
+} from "../providers/TodolistContext";
 
-type AddTodoProps = {
-  addTodo: (todo: Todo) => void;
-};
-
-export function AddTodo({ addTodo }: AddTodoProps) {
+export function AddTodo() {
+  const { addTodo } = useContext<TodolistContextType>(todolistContext);
   const [input, setInput] = useState("");
 
   function handleSubmit(e: React.FormEvent) {
