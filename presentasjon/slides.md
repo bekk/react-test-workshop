@@ -3,7 +3,7 @@
 - testing av React-komponenter
 - jest
 - react testing library
-- mocking med Jest
+- mocking med Jest | fetch-mock 
 
 ---
 
@@ -56,7 +56,25 @@ const {/\* \*/} = render(Component):
 ---
 
 ## Mock
+> The fetch-mock library will let you simulate and manage interactions with other applications by intercepting all API calls done with fetch
 
+```JSX
+import fetchMock from "fetch-mock";
+
+let delayfaktor = 1;
+
+fetchMock.get(
+  "express:/todolist",
+  (url) => {
+    return {
+      todoList: [{ text: "Hello I'm MOCK", id: "9876543210" }],
+    };
+  },
+  {
+    delay: 1000 * delayfaktor,
+  }
+);
+```
 ---
 
 ## Åpne spørsmål

@@ -27,6 +27,7 @@
     "yarn": "^1.22.4"
   },
   "scripts": {
+    "mock": "REACT_APP_MOCK=true yarn start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -61,6 +62,10 @@
   },
   "proxy": "http://localhost:8080",
   "devDependencies": {
-    "@types/jest-axe": "^3.5.0"
+    "@types/jest-axe": "^3.5.0",
+    "@types/fetch-mock": "^7.3.2",
+    "fetch-mock": "^9.10.1",
+    "node-fetch": "^2.6.1",
+    "ts-jest": "^26.3.0"
   }
 }
