@@ -6,25 +6,10 @@ import {
 } from "./api-utils";
 import { Todo, Todolist } from "../domain/Todo";
 
-// Deprecated
-export function saveTodoListToDatabase(todoList: Todo[]) {
-  fetch("/todolist", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ todoList: todoList }),
-  });
-}
-
-type TodoListResponse = {
-  todoList: Todo[];
-};
-
 /*
-  CRUD todolist
+  CRUD todolist (available functions)
  */
-export const createTodoRestResource = async (
+export const createTodoAndReturnUpdatedTodolist = async (
   todo: Todo
 ): Promise<RestTodolist> => {
   try {
@@ -38,6 +23,51 @@ export const createTodoRestResource = async (
   } catch (error) {
     return { status: RestStatus.Error };
   }
+};
+
+export const fetchTodolist = async (): Promise<RestTodolist> => {
+  try {
+    const todolist = await fetchTodos();
+
+    const restTodoList = {
+      status: RestStatus.Success,
+      data: todolist,
+    };
+    return restTodoList;
+  } catch (error) {
+    return { status: RestStatus.Error };
+  }
+};
+
+export const deleteTodoAndReturnUpdatedTodolist = async (
+  id: number
+): Promise<RestTodolist> => {
+  try {
+    const todolist = await deleteTodo(id);
+
+    const restTodoList = {
+      status: RestStatus.Success,
+      data: todolist,
+    };
+    return restTodoList;
+  } catch (error) {
+    return { status: RestStatus.Error };
+  }
+};
+
+const fetchTodos = async (): Promise<Todolist> => {
+  const response = await fetch("/todolist");
+  const restStatus: RestStatus = getRestStatus(response.status);
+
+  if (restStatus !== RestStatus.Success) {
+    const error = {
+      status: restStatus,
+    };
+
+    return Promise.reject(error);
+  }
+
+  return await response.json();
 };
 
 const createTodo = async (todo: Todo): Promise<Todolist> => {
@@ -62,35 +92,6 @@ const createTodo = async (todo: Todo): Promise<Todolist> => {
   return await response.json();
 };
 
-const fetchTodolist = async (): Promise<Todolist> => {
-  const response = await fetch("/todolist");
-  const restStatus: RestStatus = getRestStatus(response.status);
-
-  if (restStatus !== RestStatus.Success) {
-    const error = {
-      status: restStatus,
-    };
-
-    return Promise.reject(error);
-  }
-
-  return await response.json();
-};
-
-export const fetchTodolistRestResource = async (): Promise<RestTodolist> => {
-  try {
-    const todolist = await fetchTodolist();
-
-    const restTodoList = {
-      status: RestStatus.Success,
-      data: todolist,
-    };
-    return restTodoList;
-  } catch (error) {
-    return { status: RestStatus.Error };
-  }
-};
-
 const deleteTodo = async (id: number): Promise<Todolist> => {
   const response = await fetch("/delete/todo", {
     method: "POST",
@@ -111,22 +112,6 @@ const deleteTodo = async (id: number): Promise<Todolist> => {
   }
 
   return await response.json();
-};
-
-export const deleteTodoRestResource = async (
-  id: number
-): Promise<RestTodolist> => {
-  try {
-    const todolist = await deleteTodo(id);
-
-    const restTodoList = {
-      status: RestStatus.Success,
-      data: todolist,
-    };
-    return restTodoList;
-  } catch (error) {
-    return { status: RestStatus.Error };
-  }
 };
 
 /*

@@ -6,15 +6,12 @@ import React, {
 } from "react";
 import { RestStatus, RestTodolist } from "../api/api-utils";
 import {
-  createTodoRestResource,
-  deleteTodoRestResource,
-  fetchTodolistRestResource,
+  createTodoAndReturnUpdatedTodolist,
+  deleteTodoAndReturnUpdatedTodolist,
+  fetchTodolist,
 } from "../api/api";
 import { Todo } from "../domain/Todo";
 
-/*export const todolistContext = createContext<{RestTodolist, (todo: Todo) => void, (id: number) => void}>({
-  status: RestStatus.NotLoadedYet,
-});*/
 export type TodolistContextType = {
   restTodolist: RestTodolist;
   addTodo: (value: Todo) => void;
@@ -23,32 +20,29 @@ export type TodolistContextType = {
 
 export const todolistContext = createContext<TodolistContextType>({
   restTodolist: { status: RestStatus.NotLoadedYet },
-  addTodo: (value: Todo) => {},
-  deleteTodo: (value: number) => {},
+  addTodo: () => {},
+  deleteTodo: () => {},
 });
 
 export const TasksProvider: FunctionComponent = (props) => {
-  // State for todos
   const [restTodolist, setRestTodolist] = useState<RestTodolist>({
     status: RestStatus.Loading,
   });
 
-  // add a Todo (and update DB)
   const addTodo = (todo: Todo): void => {
-    createTodoRestResource(todo).then((todolist) => {
+    createTodoAndReturnUpdatedTodolist(todo).then((todolist) => {
       setRestTodolist(todolist);
     });
   };
 
-  // delete a Todo (and update DB)
   const deleteTodo = (id: number) => {
-    deleteTodoRestResource(id).then((todolist) => {
+    deleteTodoAndReturnUpdatedTodolist(id).then((todolist) => {
       setRestTodolist(todolist);
     });
   };
 
   useEffect(() => {
-    fetchTodolistRestResource().then((todolist) => {
+    fetchTodolist().then((todolist) => {
       setRestTodolist(todolist);
     });
   }, []);
