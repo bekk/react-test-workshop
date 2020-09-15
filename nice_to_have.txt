@@ -1,0 +1,10 @@
+Ting vi burde fikse/avklare for ryddighetsskyld
+ - yarn eller npm: ser vi har både yarn.lock, og package-lock.json (bruker selv yarn, men har ingenting imot npm) 
+ - bruk av FunctionComponent all over the place
+
+
+Bilde/skisse som forklarer sturkuren (Thomas kan gjøre det)
+
+Oppdatere README og fjerne tekst som kommer fra "create react app"
+
+
