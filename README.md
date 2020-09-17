@@ -6,7 +6,7 @@ Nå ska vi lære oss at teste React-kode!
 
 Det finnes en tilhørende [presentasjon](https://joakimgy.github.io/react-test-workshop/#/) som kan være til hjelp med at komme igang med denne workshop. Ellers er det bare å følge trinnene nedenfor for å komme i gang!
 
-## Dette må du ha før du starer
+### Dette må du ha før du starter
 
 For at komme i gang med workshopen må du ha `node` og `npm` installert. Her en noen guides som kan hjelpe deg at få disse installert:
 
@@ -14,7 +14,7 @@ For at komme i gang med workshopen må du ha `node` og `npm` installert. Her en 
 - [How To Install Node.Js And NPM On Windows](https://phoenixnap.com/kb/install-node-js-npm-on-windows)
 - [How To Install Node.js on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04)
 
-## Starte applikasjonen
+### Starte applikasjonen
 
 1. Last ned repoet ved å kjøre `git clone https://github.com/joakimgy/react-test-workshop.git` i terminalen.
 2. Navigere til root-folderen i terminalen.
