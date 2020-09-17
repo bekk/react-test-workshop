@@ -1,5 +1,6 @@
 {
   "name": "react-test-workshop",
+  "homepage": "https://joakimgy.github.io/react-test-workshop",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,6 +14,7 @@
     "add": "^2.0.6",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "gh-pages": "^3.1.0",
     "husky": "^4.2.5",
     "jest-axe": "^3.5.0",
     "latest": "^0.2.0",
@@ -33,7 +35,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "react-scripts lint",
-    "presentasjon": "reveal-md presentasjon/slides.md"
+    "presentasjon": "reveal-md presentasjon/slides.md",
+    "predeploy": "reveal-md presentasjon/slides.md --static build_presentasjon",
+    "deploy": "gh-pages -d build_presentasjon"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -62,8 +66,8 @@
   },
   "proxy": "http://localhost:8080",
   "devDependencies": {
-    "@types/jest-axe": "^3.5.0",
     "@types/fetch-mock": "^7.3.2",
+    "@types/jest-axe": "^3.5.0",
     "fetch-mock": "^9.10.1",
     "node-fetch": "^2.6.1",
     "ts-jest": "^26.3.0"
