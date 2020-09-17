@@ -4,7 +4,3 @@ Ting vi burde fikse/avklare for ryddighetsskyld
 
 
 Bilde/skisse som forklarer sturkuren (Thomas kan gjøre det)
-
-Oppdatere README og fjerne tekst som kommer fra "create react app"
-
-
