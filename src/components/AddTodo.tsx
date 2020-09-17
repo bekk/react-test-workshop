@@ -1,16 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import InputWithLabel from "./InputWithLabel";
-import {
-  todolistContext,
-  TodolistContextType,
-} from "../providers/TodolistContext";
+import { Todo } from "../domain/Todo";
 
-export function AddTodo() {
-  const { addTodo } = useContext<TodolistContextType>(todolistContext);
+type AddTodoProps = {
+  addTodo: (todo: Todo) => void;
+};
+
+export const AddTodo: FunctionComponent<AddTodoProps> = (props) => {
   const [input, setInput] = useState("");
 
   function handleSubmit(e: React.FormEvent) {
-    addTodo({ text: input, id: Math.random() });
+    props.addTodo({ text: input, id: Math.random() });
     setInput("");
     e.preventDefault();
   }
@@ -26,4 +26,4 @@ export function AddTodo() {
       <button>Add</button>
     </form>
   );
-}
+};

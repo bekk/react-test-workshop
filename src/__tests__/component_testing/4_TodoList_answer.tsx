@@ -9,7 +9,7 @@ import { toHaveNoViolations, axe } from "jest-axe";
 test("renders a TodoList with the title 'List'", () => {
   // 1. Render an empty <TodoList />
   const { getByText } = render(
-    <TodoList todoList={[]} removeTodo={() => {}} />
+    <TodoList todoList={[]} deleteTodo={() => {}} />
   );
 
   // 2. Use `getByText` and `toBeInTheDocument` to check that TodoList renders the title 'list'
@@ -21,7 +21,7 @@ test("renders a TodoList with the title 'List'", () => {
 test("tells the user that all task are completed if todoList is empty", () => {
   // 1. Render an empty <TodoList />
   const { getByText } = render(
-    <TodoList todoList={[]} removeTodo={() => {}} />
+    <TodoList todoList={[]} deleteTodo={() => {}} />
   );
 
   // 2. Use `getByText` and `toBeInDocument` to check that the empty TodoList
@@ -38,7 +38,7 @@ test("renders the list given as input", () => {
     { text: "input 2", id: 2 },
   ];
   const { getByText } = render(
-    <TodoList todoList={list} removeTodo={() => {}} />
+    <TodoList todoList={list} deleteTodo={() => {}} />
   );
   // 2. Use `getByText` to check that the elements in the list renders
   const element1 = getByText(/input 1/i);
@@ -54,7 +54,7 @@ test("the removeTodo function can alter the input", async () => {
   const { getByText, getByLabelText, rerender } = render(
     <TodoList
       todoList={list}
-      removeTodo={() => {
+      deleteTodo={() => {
         list.pop();
       }}
     />
@@ -71,7 +71,7 @@ test("the removeTodo function can alter the input", async () => {
   rerender(
     <TodoList
       todoList={list}
-      removeTodo={() => {
+      deleteTodo={() => {
         list.pop();
       }}
     />

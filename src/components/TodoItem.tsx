@@ -1,28 +1,23 @@
-import React, { useContext } from "react";
+import React, { FunctionComponent } from "react";
 import { Todo } from "../domain/Todo";
-import {
-  todolistContext,
-  TodolistContextType,
-} from "../providers/TodolistContext";
 
 export type TodoItemProps = {
   todo: Todo;
+  deleteTodo: (id: number) => void;
 };
 
-export function TodoItem({ todo }: TodoItemProps) {
-  const { deleteTodo } = useContext<TodolistContextType>(todolistContext);
-
+export const TodoItem: FunctionComponent<TodoItemProps> = (props) => {
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <label htmlFor={`${todo.id}`}>{todo.text}</label>
+      <label htmlFor={`${props.todo.id}`}>{props.todo.text}</label>
       <button
-        id={`${todo.id}`}
+        id={`${props.todo.id}`}
         onClick={() => {
-          deleteTodo(todo.id);
+          props.deleteTodo(props.todo.id);
         }}
       >
         x
       </button>
     </div>
   );
-}
+};
