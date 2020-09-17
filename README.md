@@ -1,49 +1,50 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React test workshop
+
+Nå ska vi lære oss at teste React-kode!
+
+## Kom i gang
+
+Det finnes en tilhørende [presentasjon](https://joakimgy.github.io/react-test-workshop/#/) som kan være til hjelp med at komme igang med denne workshop. Ellers er det bare å følge trinnene nedenfor for å komme i gang!
+
+1. Last ned repoet ved å kjøre `git clone https://github.com/joakimgy/react-test-workshop.git` i terminalen.
+2. Navigere til root-folderen i terminalen.
+3. Starte backend gjennom kommandoen `node server.js`.
+4. I en annen terminal, starte frontend gjennom kommandoet `yarn` og deretter `yarn start`.
+5. I en tredje terminal kjør `yarn test` for at kjøre igang testene i watch mode.
+6. Åpne koden, navigere til `src/__tests__/` og følg instruksjonene derifra!
+
+## Nyttige lenker
+
+- [Jest dokumentasjon](https://jestjs.io/docs/en/getting-started) - Jest brukes som testing framwork i denne workshop.
+- [React testing library](https://testing-library.com/docs/react-testing-library/intro) - En verktøy for testing av React-komponenter.
+- [Queries cheat sheet](https://testing-library.com/docs/react-testing-library/cheatsheet) - oversikt av alle queries som blir eksponert av render.
+- [user-event dokumentasjon](https://github.com/testing-library/user-event) - oversikt av alle user-events som kan brukes for at endre på DOM:en (f.eks. at klikke på en knappe i et test)
+- [expect dokumentasjon](https://jestjs.io/docs/en/expect) - Forskellige funksjoner for at sjekke at testet gjer forventet resultat.
+
+## Frontend
+
+Applikasjonen er skriven i React og typescript. Åpne `App.tsx` for at se på applikasjonen.
 
 ## Backend
 
-In order to temporarily store the todo list we're using a very simple express server.
-The backend can be started by running the command `node ./server.js`.
+For at lagre todo-listen bruker vi en veldig simpel express server. Denne kan startes gjennom at kjøre `node server.js`.
 
-## Available Scripts
+## Scripts
 
-In the project directory, you can run:
+Her beskriver vi noen scripts som går at kjøre i terminalen hvis når man er i root directory (der man finner ´package.json´ ).
+
+### `yarn`
+
+Installerer alle dependencies som trengs for at kjøre applikasjonen lokalt.
 
 ### `yarn start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Starter applikasjonen som kan vises gjennom at åpne [http://localhost:3000](http://localhost:3000) i nettleseren. Hjemmesiden vil automatisk bli oppdatert når man gjør en endring i koden.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### `node server.js`
+
+Starter opp en express-backend som trengs for at bruke applikasjonen.
 
 ### `yarn test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Kjører alle tester i watch mode. Ved å trykke på `a`-tasten kjører alle tester. Når testene blir oppdatert vil testene kjøres automatisk.
