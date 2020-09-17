@@ -1,6 +1,6 @@
 import fetchMock from "fetch-mock";
 
-let delayfaktor = 1;
+let delayfactor = 1;
 
 fetchMock.get(
   "express:/todolist",
@@ -10,6 +10,6 @@ fetchMock.get(
     };
   },
   {
-    delay: 1000 * delayfaktor,
+    delay: 1000 * delayfactor,
   }
 );

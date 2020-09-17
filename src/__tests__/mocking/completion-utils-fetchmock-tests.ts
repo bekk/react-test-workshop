@@ -1,4 +1,4 @@
-import { getCompletion } from "./../../utils/completion-utils";
+import { getCompletion, getMasteryLevel } from "../../utils/completion-utils";
 import fetchMock from "fetch-mock";
 
 describe("Tests for completion-utils. Mock interactions to the server", () => {
