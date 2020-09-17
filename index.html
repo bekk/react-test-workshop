@@ -17,7 +17,7 @@
 - testing av React-komponenter
 - jest
 - react testing library
-- mocking med Jest | fetch-mock 
+- mocking med Jest | fetch-mock
 </script></section><section  data-markdown><script type="text/template">
 ## React testing library
 
@@ -56,10 +56,13 @@ const {/\* \*/} = render(Component):
 - container reference to the DOM node where the component is mounted
 </script></section><section  data-markdown><script type="text/template">
 ## jest expect
+
+- `expect(result).toBe(expected)`
 </script></section><section  data-markdown><script type="text/template">
 ## fire event
 </script></section><section  data-markdown><script type="text/template">
 ## Mock
+
 > The fetch-mock library will let you simulate and manage interactions with other applications by intercepting all API calls done with fetch
 
 ```JSX
@@ -78,7 +81,8 @@ fetchMock.get(
     delay: 1000 * delayfaktor,
   }
 );
-```</script></section><section  data-markdown><script type="text/template">
+```
+</script></section><section  data-markdown><script type="text/template">
 ## Åpne spørsmål
 
 - Hvordan tester ni frontend på projekt idag?
