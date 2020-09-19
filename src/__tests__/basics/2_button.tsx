@@ -1,10 +1,9 @@
 import { fireEvent, render } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 
 test("button renders with some text", () => {
-  const { getByText, getByRole } = render(
-    <button>Klikk for å starte testingen!</button>
-  );
+  const { getByText, getByRole } = render(<button>Klikk for å teste!</button>);
 
   // https://testing-library.com/docs/guide-which-query
   // We can use different queries to find the button:
@@ -35,5 +34,7 @@ test("button should call onClick when clicked", () => {
   fireEvent.click(button);
   expect(counter).toBe(1);
 
-  //
+  // user-event can also be used to interact with components
+  userEvent.click(button);
+  expect(counter).toBe(2);
 });

@@ -25,6 +25,5 @@ export const getCompletion = async (): Promise<number> => {
 
 export const getMasteryLevel = (completionRate: number): string => {
   // TODO: algorithm based on todays date
-  console.log("day: " + today());
   return `${today()} Noob`;
 };
