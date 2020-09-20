@@ -217,6 +217,41 @@ test("input should be connected to a label", () => {
 
 ## Oppgave 2: Mock en modul med `jest.mock`
 
+Koden vi skriver er noen gang avhengig av ressurser vi ikke har kontroll på (uforutsigtbar) eller ikke kan få lett tak i (verdi av CPU bruk, dato, en fil, ...)
+
+En måte å teste koden som bruker en sånn ressurs er å _mocke_ den. Det vil si at vi erstatter den ressursen vi trenger med kode som oppfører seg likt.
+
+🏆 Funksjonen `getMasteryLevel(completionRate: number, lang: string)` i `src/utils/mastery-level-utils` returnerer en enkel tekst som inneholder bl.a. dagensdato. Vi skal skrive en test som sjekker retur verdi, uten å være avhengig av hvilken dag testen kjører.
+
+💡 `getMasteryLevel` som vi vil teste bruker `getTodaysDate` i `src/utils/date-utils` for å hente ut dagensdato. Bruk `jest.mock` for å ta kontroll over hele `date-utils` modul og mock `getTodaysDate(lang: string)` funksjonen.
+`jest.mock` skal brukes i test modul `src/__tests__/mocking/mastery-level-utils-mock-tests.ts` før den første testen. Testen er allerde skrevet, men feiler hvis du ikke kjører den på en mandag.
+For å få testen til å fungere, skal vi mocke `getTodaysDate` i `src/utils/date-utils` slik at den returnerer "Monday".
+
+💡 Tips: `jest.mock` fungerer slik:
+
+```js
+// OBS: skal skrives FØR testene
+jest.mock("relative/path/to/the/modul/you/want/to/control", () => {
+  return {
+    nameOfFunctionToMock: jest.fn((parameterIfAny: type) => "return value"),
+  };
+});
+```
+
+<details>
+  <summary>🚨Løsning</summary>
+
+```js
+jest.mock("../../utils/date-utils", () => {
+  return {
+    getTodaysDate: jest.fn((lang: string) => "Monday"),
+  };
+});
+```
+
+</details>
+<br/>
+
 ## Oppgave 3: Mock nettverk kall med `fetch-mock`
 
 I denne oppgaven skal du lære å "mocke" nettverk kall. Se gjerne på "Mocking" i tilhørende [presentasjon](https://joakimgy.github.io/react-test-workshop/#/) om du ikke har gjort det enda.
