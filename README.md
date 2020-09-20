@@ -417,12 +417,22 @@ fetchMock.post(
 </details>
 <br/>
 
-💡 Til `/statistic/*` endepunktene skal du opprette andre globale variaber, som `nbOfCreatedTodos` og `nbOfDeletedTodos`
+💡 Til `/statistic/*` endepunktene skal du opprette andre globale variaber, som `nbOfCreatedTodos` og `nbOfDeletedTodos`.
+OBS: init verdi til `nbOfCreatedTodos` skal matche antall _todos_ i `todoList` ved init.
 
 <details>
   <summary>🚨Løsning</summary>
 
 ```js
+const todolistResponse: Todolist = {
+  todoList: [{ text: "Hello I'm MOCK", id: 1 }],
+};
+
+let nbOfCreatedTodos = 1;
+let nbOfDeletedTodos = 0;
+
+// dine andre funksjoner for GET /todolist, POST create/todo og POST delete/todo ...
+
 fetchMock.get(
   "express:/stats/created",
   (url) => {

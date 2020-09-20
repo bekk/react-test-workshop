@@ -4,9 +4,8 @@ import {
   RestStatistic,
 } from "../api/api";
 import { RestStatus } from "../api/api-utils";
-import { today } from "./date-utils";
 
-export const getCompletion = async (): Promise<number> => {
+export const getCompletionRate = async (): Promise<number> => {
   const restStatisticNbOfCreatedTasks: RestStatistic = await fetchNbOfCreatedTasks();
   const restStatisticNbOfDeletedTasks: RestStatistic = await fetchNbOfDeletedTasks();
 
@@ -15,14 +14,11 @@ export const getCompletion = async (): Promise<number> => {
     restStatisticNbOfDeletedTasks.status === RestStatus.Success
   ) {
     return (
-      restStatisticNbOfDeletedTasks.data.value /
-      restStatisticNbOfCreatedTasks.data.value
+      (restStatisticNbOfDeletedTasks.data.value /
+        restStatisticNbOfCreatedTasks.data.value) *
+      100
     );
   } else {
     return 0;
   }
-};
-
-export const getMasteryLevel = (completionRate: number): string => {
-  return `${today()} Noob`;
 };

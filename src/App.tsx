@@ -12,7 +12,8 @@ import {
   todolistContext,
   TodolistContextType,
 } from "./providers/TodolistContext";
-import { getCompletion, getMasteryLevel } from "./utils/completion-utils";
+import { getCompletionRate } from "./utils/completion-utils";
+import { getMasteryLevel } from "./utils/mastery-level-utils";
 
 const App: FunctionComponent = () => {
   return (
@@ -33,9 +34,9 @@ const AppContent: FunctionComponent = () => {
   const [masteryLevel, setMasteryLevel] = useState<string>();
 
   useEffect(() => {
-    getCompletion().then((value) => {
+    getCompletionRate().then((value) => {
       setCompletionRate(value);
-      setMasteryLevel(getMasteryLevel(value));
+      setMasteryLevel(getMasteryLevel(value, "en"));
     });
   }, [restTodolist]);
 
@@ -50,9 +51,20 @@ const AppContent: FunctionComponent = () => {
           deleteTodo={deleteTodo}
         />
         <AddTodo addTodo={addTodo} />
-        <h2>Stuffs we need to illustrate mock testing</h2>
-        <p>Your completion rate: {completionRate}</p>
-        <p>Your (not so true) level of mastery: {masteryLevel}</p>
+        <hr
+          style={{
+            marginTop: "2rem",
+            color: "black",
+            backgroundColor: "grey",
+            height: 5,
+          }}
+        />
+        <h2>How good are you at finishing those tasks?</h2>
+        <p>Your completion rate: {completionRate} %</p>
+        <p>
+          Your (not so true) level of "Simple to-do list" mastery:{" "}
+          {masteryLevel}
+        </p>
       </>
     );
   } else {
