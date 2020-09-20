@@ -217,6 +217,8 @@ test("input should be connected to a label", () => {
 
 ## Oppgave 2: Mock en modul med `jest.mock`
 
+Se gjerne på "Mocking" i tilhørende [presentasjon](https://joakimgy.github.io/react-test-workshop/#/) om du ikke har gjort det enda.
+
 Koden vi skriver er noen gang avhengig av ressurser vi ikke har kontroll på (uforutsigtbar) eller ikke kan få lett tak i (verdi av CPU bruk, dato, en fil, ...)
 
 En måte å teste koden som bruker en sånn ressurs er å _mocke_ den. Det vil si at vi erstatter den ressursen vi trenger med kode som oppfører seg likt.
@@ -254,8 +256,88 @@ jest.mock("../../utils/date-utils", () => {
 
 ## Oppgave 3: Mock nettverk kall med `fetch-mock`
 
-I denne oppgaven skal du lære å "mocke" nettverk kall. Se gjerne på "Mocking" i tilhørende [presentasjon](https://joakimgy.github.io/react-test-workshop/#/) om du ikke har gjort det enda.
-Målet her er å lage en mock som skal være god nok slik at vi kan kjøre applikasjonen lokalt uten noen andre avhengigheter.
+I denne oppgaveserien skal vi lære å "mocke" nettverk kall. Se gjerne på "Mocking" i tilhørende [presentasjon](https://joakimgy.github.io/react-test-workshop/#/) om du ikke har gjort det enda.
+
+### Oppgave 3a: skriv ferdig testen som sjekker `getCompletionRate()`
+
+🏆 Funksjonen `getCompletionRate()` i `src/utils/completion-utils` beregner en _completion rate_ av todos. Beregning er enkel: antall slettet / antall opprettet \* 100
+Funksjonen bruker to api kall for hente `nbOfCreatedTodos` og `nbOfDeletedTodos`. Vi skal skrive en test som sjekker at beregning er riktig.
+
+💡 i `src/__tests__/mocking/completion-utils-fetchmock-tests.ts` legg til kode som mocker de to api kall til `/stats/created` og `/stats/deleted` endepunkt slik at de returnerer en verdi som passer testens forventninger
+
+💡 Bruk `fetch-mock` for å mocke hvert api kall. Biblioteket fungerer slik:
+
+```js
+// fetch-mock brukes direkte i selve testen
+fetchMock.get(`/url/to/mock/endpoint`, bodyResponseAsJSON);
+```
+
+💡 En enkel måte å kode innhold til response er å bruke `JSON.stringify()`, som f.eks `JSON.stringify({ aFieldName: "a value" })`
+
+<details>
+  <summary>🚨Løsning</summary>
+
+```js
+import { getCompletionRate } from "../../utils/completion-utils";
+import fetchMock from "fetch-mock";
+
+describe("Tests for getCompletionRate() function", () => {
+  test("getCompletionRate() computes completion rate in percent based on nb of created vs nb of deleted todos", async () => {
+    fetchMock.get(`/stats/created`, JSON.stringify({ value: 100 }));
+    fetchMock.get(`/stats/deleted`, JSON.stringify({ value: 50 }));
+
+    const completion = await getCompletionRate();
+
+    expect(completion).toBe(50);
+  });
+});
+```
+
+</details>
+<br/>
+
+### Oppgave 3b: skriv en ny test som forbedrer implementasjon av `getCompletionRate()`
+
+Hvis ingen todo er opprettet enda, returnerer `getCompletionRate()` **NaN**. Vi ønsker å forbedre denne funksjonen slik at den returnerer **0** dersom `nbOfCreatedTodo` er null.
+
+Vi skal bruke _Test Driven Development_ metodikk og skrive testen før vi skriver implementasjonen. Testen skal først feile. Men etter vi legger til riktig implementasjon da skal være testen _grønn_.
+
+💡 I `src/__tests__/mocking/completion-utils-fetchmock-tests.ts`, legg til en test som sjekker at `getCompletionRate()` returnerer **0** dersom både kall til `/stats/created` og `/stats/deleted` returnerer **0**. Testen skal feile.
+
+<details>
+  <summary>🚨Løsning</summary>
+
+```js
+describe("Tests for getCompletionRate() function", () => {
+  // etter testen vi skrev i 3a)
+  test("getCompletionRate() returns 0 when no todos has been created or deleted", async () => {
+    fetchMock.get(`/stats/created`, JSON.stringify({ value: 0 }));
+    fetchMock.get(`/stats/deleted`, JSON.stringify({ value: 0 }));
+
+    const completion = await getCompletionRate();
+
+    expect(completion).toBe(0);
+  });
+});
+```
+
+</details>
+<br/>
+
+💡 I `src/utils/completion-utils.ts`, oppdater `getCompletionRate()` så testen blir _grønn_
+
+<details>
+  <summary>🚨Løsning</summary>
+
+```js
+// ...
+if (restStatisticNbOfCreatedTasks.data.value === 0) {
+  return 0;
+}
+```
+
+</details>
+<br/>
 
 ## Oppgave 4: Lage en mock modul for å kjøre applikasjon lokalt uten avhengigheter
 
