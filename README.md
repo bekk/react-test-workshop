@@ -220,8 +220,16 @@ test("input should be connected to a label", () => {
 ## Oppgave 3: Mock nettverk kall med `fetch-mock`
 
 I denne oppgaven skal du lære å "mocke" nettverk kall. Se gjerne på "Mocking" i tilhørende [presentasjon](https://joakimgy.github.io/react-test-workshop/#/) om du ikke har gjort det enda.
+Målet her er å lage en mock som skal være god nok slik at vi kan kjøre applikasjonen lokalt uten noen andre avhengigheter.
 
-Vi har skrevet koden som gjør at alle kall til nettverk i vår applikasjon skal gå gjennom `fetch-mock` bibliotek. `fetch-mock` skal _hijacke_ alle kall til nettverk (request og response). Vår oppgave blir da å skrive de responsene vi ønsker applikasjonen vår skal motta fra nettverket.
+## Oppgave 4: Lage en mock modul for å kjøre applikasjon lokalt uten avhengigheter
+
+Noen ganger vil vi bare kjøre applikasjonen og se "hvordan ting ser ut". Enten for å sjekke visuelt hvordan komponentene henger sammen eller bare for å ha en oversikt over slutt resultat.
+
+For å slippe å være avhengig av en eller en annen _third party_ kan vi spesifisere hvordan den tjenesten vi er avhengig av skal oppføre seg (våre forventninger).
+Det er akkurat det vi skal gjøre her. Vi skal skrive kode som beskriver våre forventninger til backend tjenester som håndterer vår data (_todos_ og _statistics_)
+
+Vi har skrevet koden som gjør at alle kall til nettverk i vår applikasjon som bruker `fetch` skal gå gjennom `fetch-mock` bibliotek. `fetch-mock` skal _hijacke_ alle kall til nettverk (request og response). Vår oppgave blir da å skrive de responsene vi ønsker applikasjonen vår skal motta av nettverket.
 
 I denne oppgaven skal du bare jobbe i denne filen: `source/mocking/mock.ts`
 
@@ -236,11 +244,11 @@ Stop og start applikasjon på nytt ved å gjøre som følgende
   Bruk `Ctrl + c` for å stoppe prosessen
   Start applikasjon i mock modus ved å kjøre `npm run mock`
 
-Etter at applikasjonen kjører med mock aktivert i trenger vi ikke lenger den lokale backend du har startet med `node server.js`. Gå til terminalen hvor backend kjører og bruk `Ctrl + c` for å stoppe prosessen.
+Etter at applikasjonen kjører med mock aktivert trenger vi ikke lenger den lokale backend du har startet med `node server.js`. Gå til terminalen hvor backend kjører og bruk `Ctrl + c` for å stoppe prosessen.
 
 Nå kan vi dele oppgaven i bitter
 
-#### Oppgave 3a) Mocke GET `/todolist`
+#### Oppgave 4a) Mocke GET `/todolist`
 
 🏆 Når applikasjonen starter sendes en GET request til `/todolist` som returnerer en liste av todos. Vi starter med å legge til flere todos i den todo lista.
 
@@ -270,7 +278,7 @@ fetchMock.get(
 </details>
 <br/>
 
-#### Oppgave 3b) Mocke POST `/create/todo`
+#### Oppgave 4b) Mocke POST `/create/todo`
 
 🏆 Hvis du nå prøver å legge til eller fjerne en todd i applikasjonen vil det ikke fungere. Årsaken er at applikasjonen bruker flere endepunkter, og vi har ikke skrevet koden i `mock.ts` for å håndtere disse kallene enda. Dette skal vi gjøre nå.
 
@@ -324,7 +332,7 @@ fetchMock.post(
 </details>
 <br/>
 
-#### Oppgave 3c) Lage en litt smartere mock
+#### Oppgave 4c) Lage en litt smartere mock
 
 🏆 Hittil har vi hardkodet response GET og POST. Man hva kan vi gjøre for å gjøre applikasjonen enda mer brukbar med `mock.ts`
 
@@ -366,6 +374,73 @@ fetchMock.post(
     {
         delay: 1000 * delayfactor,
     }
+);
+```
+
+</details>
+<br/>
+
+#### Oppgave 4d) Implementere mock for de endepunkter vi mangler
+
+🏆 Nå kan vi lage ferdig `mock.ts` ved å implementere mock _response_ for de endepunktene som gjenstår.
+
+- POST `/delete/todo`
+- GET `/statistic/created`
+- GET `/statistic/deleted`
+
+💡 Fortsett å bruke den globale variabelen `todolist` som du oppdaterer etter mock mottar POST `/delete/todo`.
+Test at mock oppfører seg som forventet og fjerner todo-en fra lista i applikasjonen.
+
+<details>
+  <summary>🚨Løsning</summary>
+
+```js
+fetchMock.post(
+    "express:/delete/todo",
+    (url, opts) => {
+        const jsonObj = JSON.parse(opts.body as string);
+        const todoIdToDelete: number = jsonObj.id;
+
+        todolistResonse.todoList = todolistResonse.todoList.filter(function (todo) {
+            return todo.id !== todoIdToDelete;
+        });
+        nbOfDeletedTodos++;
+
+        return todolistResonse;
+    },
+    {
+        delay: 1000 * delayfactor,
+    }
+);
+```
+
+</details>
+<br/>
+
+💡 Til `/statistic/*` endepunktene skal du opprette andre globale variaber, som `nbOfCreatedTodos` og `nbOfDeletedTodos`
+
+<details>
+  <summary>🚨Løsning</summary>
+
+```js
+fetchMock.get(
+  "express:/stats/created",
+  (url) => {
+    return { value: nbOfCreatedTodos };
+  },
+  {
+    delay: 1000 * delayfactor,
+  }
+);
+
+fetchMock.get(
+  "express:/stats/deleted",
+  (url) => {
+    return { value: nbOfDeletedTodos };
+  },
+  {
+    delay: 1000 * delayfactor,
+  }
 );
 ```
 
