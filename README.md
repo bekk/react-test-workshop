@@ -95,7 +95,7 @@ Etter at applikasjonen kjører med mock aktivert i trenger vi ikke lenger den lo
 
 Nå kan vi dele oppgaven i bitter
 
-#### Oppgave 3a)
+#### Oppgave 3a) mocke GET `/todolist`
 🏆 Når applikasjonen starter sendes en GET request til `/todolist` som returnerer en liste av todos. Vi starter med å legge til flere todos i den todo lista.  
 
 💡 Åpne `source/mocking/mock.ts`. Legg til flere todos i lista. Da skal alle todos du har lagt til dukke opp i applikasjonen. 
@@ -124,7 +124,7 @@ fetchMock.get(
 </details>
 <br/>
 
-#### Oppgave 3b)
+#### Oppgave 3b) mocke POST `/create/todo`
 🏆 Hvis du nå prøver å legge til eller fjerne en todd i applikasjonen vil det ikke fungere. Årsaken er at applikasjonen bruker flere endepunkter, og vi har ikke skrevet koden i `mock.ts` for å håndtere disse kallene enda. Dette skal vi gjøre nå.
 
 OBS: alle nettverk kall applikasjonen gjør finnes i `src/api/api.ts`. Se gjerne på koden for å finne ut hvilket endepunkt er tatt i brukt for å opprette eller slette en todo.
@@ -175,3 +175,51 @@ fetchMock.post(
 
 </details>
 <br/>
+
+#### Oppgave 3c) en litt smartere mock
+🏆 Hittil har vi hardkodet response GET og POST. Man hva kan vi gjøre for å gjøre applikasjonen enda mer brukbar med `mock.ts`  
+
+💡 Du kan bruke en global variabel `todolist` som oppdateres ved GET og POST og initialiseres slik: 
+```js
+const todolistResonse: Todolist = {
+    todoList: [
+        {text: "Hello I'm MOCK", id: 1}
+    ]
+};
+```
+<details>
+  <summary>🚨Løsning</summary>
+
+```js
+fetchMock.get(
+  "express:/todolist",
+  (url) => {
+    return todolistResonse;
+  },
+  {
+    delay: 1000 * delayfactor,
+  }
+);    
+
+fetchMock.post(
+    "express:/create/todo",
+    (url, opts) => {
+        const jsonObj = JSON.parse(opts.body as string);
+        const todoToBeCreated: Todo = jsonObj.todo;
+
+        todolistResonse.todoList.push({
+            text: todoToBeCreated.text,
+            id: todoToBeCreated.id
+        });
+
+        return todolistResonse;
+    },
+    {
+        delay: 1000 * delayfactor,
+    }
+);
+```
+
+</details>
+<br/>
+
