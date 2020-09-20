@@ -59,46 +59,44 @@ Starter opp en express-backend som trengs for at bruke applikasjonen.
 
 Kjører alle tester i "watch mode". Ved å trykke på `a`-tasten kjører alle tester. Når testene blir oppdatert vil testene kjøres automatisk.
 
-
 # Oppgaver
 
-
-💡 La applikasjonen kjøre mens jobber på oppgavene, [som beskrevet i denne seksjonen](#starte-applikasjonen). Vær oppmerksom på output i konsolen. Der vil du som regel få informasjon om det som eventuelt ikke fungerer. 
+💡 La applikasjonen kjøre mens jobber på oppgavene, [som beskrevet i denne seksjonen](#starte-applikasjonen). Vær oppmerksom på output i konsolen. Der vil du som regel få informasjon om det som eventuelt ikke fungerer.
 
 💡 Har du spørsmål? Stuck i oppgaven? Ta kontakt på Slack
-
 
 ## Oppgave 1: Testing React komponenter
 
 ## Oppgave 2: Mock en modul med `jest.mock`
 
 ## Oppgave 3: Mock nettverk kall med `fetch-mock`
-I denne oppgaven skal du lære å "mocke" nettverk kall. Se gjerne på "Mocking" i tilhørende [presentasjon](https://joakimgy.github.io/react-test-workshop/#/) om du ikke har gjort det enda. 
 
-Vi har skrevet koden som gjør at alle kall til nettverk i vår applikasjon skal gå gjennom `fetch-mock` bibliotek. `fetch-mock` skal *hijacke* alle kall til nettverk (request og response). Vår oppgave blir da å skrive de responsene vi ønsker applikasjonen vår skal motta fra nettverket. 
+I denne oppgaven skal du lære å "mocke" nettverk kall. Se gjerne på "Mocking" i tilhørende [presentasjon](https://joakimgy.github.io/react-test-workshop/#/) om du ikke har gjort det enda.
 
-I denne oppgaven skal du bare jobbe i denne filen: `source/mocking/mock.ts` 
+Vi har skrevet koden som gjør at alle kall til nettverk i vår applikasjon skal gå gjennom `fetch-mock` bibliotek. `fetch-mock` skal _hijacke_ alle kall til nettverk (request og response). Vår oppgave blir da å skrive de responsene vi ønsker applikasjonen vår skal motta fra nettverket.
 
-Men først litt om hvordan ting henger sammen: 
+I denne oppgaven skal du bare jobbe i denne filen: `source/mocking/mock.ts`
 
-For å aktivere mocking av nettverk må vi fortelle applikasjonen å ta i bruk koden i `mock.ts`. 
-Vi gjør det ved å sette den `REACT_APP_MOCK` *environment variable* til `true` i det applikasjonen starter. Da skal `mock.ts` bli aktivert og alle kall til nettverk går gjennom `fetch-mock`. Se gjerne på koden som aktiverer mock i `index.tsx` og kommandoen som starter applikasjonen i `package.json`
+Men først litt om hvordan ting henger sammen:
+
+For å aktivere mocking av nettverk må vi fortelle applikasjonen å ta i bruk koden i `mock.ts`.
+Vi gjør det ved å sette den `REACT_APP_MOCK` _environment variable_ til `true` i det applikasjonen starter. Da skal `mock.ts` bli aktivert og alle kall til nettverk går gjennom `fetch-mock`. Se gjerne på koden som aktiverer mock i `index.tsx` og kommandoen som starter applikasjonen i `package.json`
 
 Stop og start applikasjon på nytt ved å gjøre som følgende
-  - 
-Gå til terminalen hvor du startet applikasjon med kommandoen `npm start`
-Bruk `Ctrl + c` for å stoppe prosessen
-Start applikasjon i mock modus ved å kjøre `npm run mock` 
 
-Etter at applikasjonen kjører med mock aktivert i trenger vi ikke lenger den lokale backend du har startet med `node server.js`. Gå til terminalen hvor backend kjører og bruk `Ctrl + c` for å stoppe prosessen. 
+- Gå til terminalen hvor du startet applikasjon med kommandoen `npm start`
+  Bruk `Ctrl + c` for å stoppe prosessen
+  Start applikasjon i mock modus ved å kjøre `npm run mock`
 
+Etter at applikasjonen kjører med mock aktivert i trenger vi ikke lenger den lokale backend du har startet med `node server.js`. Gå til terminalen hvor backend kjører og bruk `Ctrl + c` for å stoppe prosessen.
 
 Nå kan vi dele oppgaven i bitter
 
 #### Oppgave 3a) mocke GET `/todolist`
-🏆 Når applikasjonen starter sendes en GET request til `/todolist` som returnerer en liste av todos. Vi starter med å legge til flere todos i den todo lista.  
 
-💡 Åpne `source/mocking/mock.ts`. Legg til flere todos i lista. Da skal alle todos du har lagt til dukke opp i applikasjonen. 
+🏆 Når applikasjonen starter sendes en GET request til `/todolist` som returnerer en liste av todos. Vi starter med å legge til flere todos i den todo lista.
+
+💡 Åpne `source/mocking/mock.ts`. Legg til flere todos i lista. Da skal alle todos du har lagt til dukke opp i applikasjonen.
 
 <details>
   <summary>🚨Løsning</summary>
@@ -109,28 +107,30 @@ fetchMock.get(
   (url) => {
     return {
       todoList: [
-          { text: "Hello I'm MOCK", id: 1 },
-          { text: "Another mock todo", id: 2 }, 
-          { text: "3 todos should be enough", id: 3 }, 
-       ],
+        { text: "Hello I'm MOCK", id: 1 },
+        { text: "Another mock todo", id: 2 },
+        { text: "3 todos should be enough", id: 3 },
+      ],
     };
   },
   {
     delay: 1000 * delayfactor,
   }
-);    
+);
 ```
 
 </details>
 <br/>
 
 #### Oppgave 3b) mocke POST `/create/todo`
+
 🏆 Hvis du nå prøver å legge til eller fjerne en todd i applikasjonen vil det ikke fungere. Årsaken er at applikasjonen bruker flere endepunkter, og vi har ikke skrevet koden i `mock.ts` for å håndtere disse kallene enda. Dette skal vi gjøre nå.
 
 OBS: alle nettverk kall applikasjonen gjør finnes i `src/api/api.ts`. Se gjerne på koden for å finne ut hvilket endepunkt er tatt i brukt for å opprette eller slette en todo.
 
-💡 Vi jobber fortsatt i `source/mocking/mock.ts`. Skriv koden som håndterer den POST request til `/create/todo` som skal til for å legge til en todo. Test din mock ved å bruke `add` knappen i applikasjon. 
-💡 For å kunne ta imot  POST requests på `/create/todo` må vi bruke `post` metode i `fetch-mock`. Denne har en `opts` parameter som inneholder request body. Denne skal vi *parse* for å hente data. 
+💡 Vi jobber fortsatt i `source/mocking/mock.ts`. Skriv koden som håndterer den POST request til `/create/todo` som skal til for å legge til en todo. Test din mock ved å bruke `add` knappen i applikasjon.
+💡 For å kunne ta imot POST requests på `/create/todo` må vi bruke `post` metode i `fetch-mock`. Denne har en `opts` parameter som inneholder request body. Denne skal vi _parse_ for å hente data.
+
 ```js
 fetchMock.post(
     "express:/create/todo",
@@ -177,16 +177,17 @@ fetchMock.post(
 <br/>
 
 #### Oppgave 3c) en litt smartere mock
-🏆 Hittil har vi hardkodet response GET og POST. Man hva kan vi gjøre for å gjøre applikasjonen enda mer brukbar med `mock.ts`  
 
-💡 Du kan bruke en global variabel `todolist` som oppdateres ved GET og POST og initialiseres slik: 
+🏆 Hittil har vi hardkodet response GET og POST. Man hva kan vi gjøre for å gjøre applikasjonen enda mer brukbar med `mock.ts`
+
+💡 Du kan bruke en global variabel `todolist` som oppdateres ved GET og POST og initialiseres slik:
+
 ```js
 const todolistResonse: Todolist = {
-    todoList: [
-        {text: "Hello I'm MOCK", id: 1}
-    ]
+  todoList: [{ text: "Hello I'm MOCK", id: 1 }],
 };
 ```
+
 <details>
   <summary>🚨Løsning</summary>
 
@@ -199,7 +200,7 @@ fetchMock.get(
   {
     delay: 1000 * delayfactor,
   }
-);    
+);
 
 fetchMock.post(
     "express:/create/todo",
@@ -222,4 +223,3 @@ fetchMock.post(
 
 </details>
 <br/>
-
