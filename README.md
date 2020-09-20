@@ -63,7 +63,7 @@ Kjører alle tester i "watch mode". Ved å trykke på `a`-tasten kjører alle te
 # Oppgaver
 
 
-💡 La applikasjonen kjøre mens jobber på oppgavene, som beskrevet i #starte-applikasjonen. Vær oppmerksom på output i konsolen, da får du ofte informasjonen om det som eventuelt ikke fungerer. 
+💡 La applikasjonen kjøre mens jobber på oppgavene, [som beskrevet i denne seksjonen](#starte-applikasjonen). Vær oppmerksom på output i konsolen. Der vil du som regel få informasjon om det som eventuelt ikke fungerer. 
 
 💡 Har du spørsmål? Stuck i oppgaven? Ta kontakt på Slack
 
