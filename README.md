@@ -67,6 +67,154 @@ Kjører alle tester i "watch mode". Ved å trykke på `a`-tasten kjører alle te
 
 ## Oppgave 1: Testing React komponenter
 
+💡 Test-filene som brukes i oppgave 1 finner du i mappen `__tests__/basics/`.
+
+### Oppgave 1a)
+
+🏆 Lage et test som bruker [render](https://testing-library.com/docs/react-testing-library/api#render) fra `@testing-library/react` for at teste at HTML-elementet `paragraph`. Bruk [getByText](https://testing-library.com/docs/react-testing-library/cheatsheet#text-match-options) for a finne paragraph-elementet som blir laget av `render` og sjekk at det finnes i documentet gjenom at bruke `expect(element).toBeInDocument()`.
+
+<details>
+ <summary>🚨 Løsning</summary>
+
+```js
+test("paragraph renders with some text", () => {
+  const { getByText } = render(
+    <p>All code is guilty, until proven innocent.</p>
+  );
+  const paragraph = getByText(/code/i);
+  expect(paragraph).toBeInTheDocument();
+}),
+
+```
+
+</details>
+
+### Oppgave 1b)
+
+🏆 Bruk `render` for å teste en HTML-`button`. På samme måte som for paragraph, bruk en query (f.eks. `getByText`) for å sjekke at knappen har en tekst.
+
+💡 [Her](https://testing-library.com/docs/guide-which-query) kan du lese litt om hvilke queries skaperne bak DOM testing library rekommenderer at man bruker.
+
+<details>
+ <summary>🚨 Løsning</summary>
+
+```js
+test("button renders with some text", () => {
+  const { getByText, getByRole } = render(<button>Klikk!</button>);
+
+  // `getByText`
+  const buttonByText = getByText(/klikk/i);
+  expect(buttonByText).toBeInTheDocument();
+  // `getByRole`
+  const buttonByRole = getByRole("button", { name: /klikk/i });
+  expect(buttonByRole).toBeInTheDocument();
+});
+```
+
+</details>
+
+### Oppgave 1c)
+
+🏆 Sjekk at `button` sin `onClick`-property fungerer. Når man klikker på knappen skal telleren `counter` øke med et.
+
+💡 For at simulere et klikk på knappen kan man bruke `fireEvent.click(element)` eller `userEvent.click(element)`.
+
+<details>
+ <summary>🚨 Løsning</summary>
+
+```js
+test("button should call onClick when clicked", () => {
+  let counter = 0;
+  function increment() {
+    counter++;
+  }
+  const { getByText } = render(<button onClick={increment}>increment</button>);
+
+  const button = getByText(/increment/i);
+  expect(counter).toBe(0);
+
+  fireEvent.click(button);
+  expect(counter).toBe(1);
+
+  userEvent.click(button);
+  expect(counter).toBe(2);
+});
+```
+
+</details>
+
+### Oppgave 1d)
+
+🏆 Bruk `render` for å teste et `input`-element. Sjekk at standardverdien til `value` er en tom string og at `value` blir oppdatert hvis man skriver noet i input-feltet.
+
+💡 `userEvent.type(element, tekst)` kan brukes for at skrive en tekst i feltet.
+
+💡 `expect(element).toHaveValue()` kan brukes for at sjekke at `value` er som forventet.
+
+<details>
+ <summary>🚨 Løsning</summary>
+
+```js
+test("typing in the input should change its value", () => {
+  const { getByRole } = render(<input />);
+  const input = getByRole("textbox");
+
+  expect(input).toHaveValue("");
+  userEvent.type(input, "I'm not a robot!");
+  expect(input).toHaveValue("I'm not a robot!");
+});
+```
+
+</details>
+
+### Oppgave 1e)
+
+🏆 Bruk `jest-axe` for å sjekke at input-feltet er UU-vennlig (accessible). Hvis noet er feil, fiks feilen!
+
+<details>
+ <summary>🚨 Løsning</summary>
+
+```js
+expect.extend(toHaveNoViolations);
+test("input should be accessible", async () => {
+  const { container } = render(
+    <div>
+      <label htmlFor="my-input">An accessible input :D</label>
+      <input id="my-input" />
+    </div>
+  );
+  const result = await axe(container);
+  expect(result).toHaveNoViolations();
+});
+```
+
+</details>
+
+### Oppgave 1f)
+
+🏆 Teste den UU-vennlige label+input-komponenten fra steget øver med `render`. Bruk `getByLabelText` for at sjekke at label er koblet sammen med input.
+
+<details>
+ <summary>🚨 Løsning</summary>
+
+```js
+test("input should be connected to a label", () => {
+  const { getByLabelText } = render(
+    <div>
+      <label htmlFor="my-input">
+        This label is connected to the input below
+      </label>
+      <input id="my-input" />
+    </div>
+  );
+
+  const input = getByLabelText(/finish/i);
+  expect(input).toBeInTheDocument();
+});
+```
+
+</details>
+
 ## Oppgave 2: Mock en modul med `jest.mock`
 
 ## Oppgave 3: Mock nettverk kall med `fetch-mock`
