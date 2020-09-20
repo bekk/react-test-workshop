@@ -58,3 +58,68 @@ Starter opp en express-backend som trengs for at bruke applikasjonen.
 ### `npm test`
 
 Kjører alle tester i "watch mode". Ved å trykke på `a`-tasten kjører alle tester. Når testene blir oppdatert vil testene kjøres automatisk.
+
+
+# Oppgaver
+
+
+💡 La applikasjonen kjøre mens jobber på oppgavene, som beskrevet i #starte-applikasjonen. Vær oppmerksom på output i konsolen, da får du ofte informasjonen om det som eventuelt ikke fungerer. 
+
+💡 Har du spørsmål? Stuck i oppgaven? Ta kontakt på Slack
+
+
+## Oppgave 1: Testing React komponenter
+
+## Oppgave 2: Mock en modul med `jest.mock`
+
+## Oppgave 3: Mock nettverk kall med `fetch-mock`
+I denne oppgaven skal du lære å "mocke" nettverk kall. Se gjerne på "Mocking" i tilhørende [presentasjon](https://joakimgy.github.io/react-test-workshop/#/) om du ikke har gjort det enda. 
+
+Vi har skrevet koden som gjør at alle kall til nettverk i vår applikasjon skal gå gjennom `fetch-mock` bibliotek. `fetch-mock` skal *hijacke* alle kall til nettverk (request og response). Vår oppgave blir da å skrive de responsene vi ønsker applikasjonen vår skal motta fra nettverket. 
+
+I denne oppgaven skal du bare jobbe i denne filen: `source/mocking/mock.ts` 
+
+Men først litt om hvordan ting henger sammen: 
+
+For å aktivere mocking av nettverk må vi fortelle applikasjonen å ta i bruk koden i `mock.ts`. 
+Vi gjør det ved å sette den `REACT_APP_MOCK` *environment variable* til `true` i det applikasjonen starter. Da skal `mock.ts` bli aktivert og alle kall til nettverk går gjennom `fetch-mock`. Se gjerne på koden som aktiverer mock i `index.tsx` og kommandoen som starter applikasjonen i `package.json`
+
+Stop og start applikasjon på nytt ved å gjøre som følgende
+  - 
+Gå til terminalen hvor du startet applikasjon med kommandoen `npm start`
+Bruk `Ctrl + c` for å stoppe prosessen
+Start applikasjon i mock modus ved å kjøre `npm run mock` 
+
+Etter at applikasjonen kjører med mock aktivert i trenger vi ikke lenger den lokale backend du har startet med `node server.js`. Gå til terminalen hvor backend kjører og bruk `Ctrl + c` for å stoppe prosessen. 
+
+
+Nå kan vi dele oppgaven i bitter
+
+#### Oppgave 3a)
+🏆 Når applikasjonen starter sendes en GET request til `/todolist` som returnerer en liste av todos. Vi starter med å legge til flere todos i den todo lista.  
+
+💡 Åpne `source/mocking/mock.ts`. Legg til flere todos i lista. 
+
+<details>
+  <summary>🚨Løsning</summary>
+
+```js
+fetchMock.get(
+  "express:/todolist",
+  (url) => {
+    return {
+      todoList: [
+          { text: "Hello I'm MOCK", id: 1 },
+          { text: "Another mock todo", id: 2 }, 
+          { text: "3 todos should be enough", id: 3 }, 
+       ],
+    };
+  },
+  {
+    delay: 1000 * delayfactor,
+  }
+);    
+```
+
+</details>
+<br/>

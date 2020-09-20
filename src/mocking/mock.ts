@@ -1,12 +1,13 @@
 import fetchMock from "fetch-mock";
+import { Todo } from "../domain/Todo";
 
-let delayfactor = 1;
+let delayfactor = 0.2;
 
 fetchMock.get(
   "express:/todolist",
   (url) => {
     return {
-      todoList: [{ text: "Hello I'm MOCK", id: "9876543210" }],
+      todoList: [{ text: "Hello I'm MOCK", id: 1 }],
     };
   },
   {
