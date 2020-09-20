@@ -98,7 +98,7 @@ Nå kan vi dele oppgaven i bitter
 #### Oppgave 3a)
 🏆 Når applikasjonen starter sendes en GET request til `/todolist` som returnerer en liste av todos. Vi starter med å legge til flere todos i den todo lista.  
 
-💡 Åpne `source/mocking/mock.ts`. Legg til flere todos i lista. 
+💡 Åpne `source/mocking/mock.ts`. Legg til flere todos i lista. Da skal alle todos du har lagt til dukke opp i applikasjonen. 
 
 <details>
   <summary>🚨Løsning</summary>
@@ -119,6 +119,58 @@ fetchMock.get(
     delay: 1000 * delayfactor,
   }
 );    
+```
+
+</details>
+<br/>
+
+#### Oppgave 3b)
+🏆 Hvis du nå prøver å legge til eller fjerne en todd i applikasjonen vil det ikke fungere. Årsaken er at applikasjonen bruker flere endepunkter, og vi har ikke skrevet koden i `mock.ts` for å håndtere disse kallene enda. Dette skal vi gjøre nå.
+
+OBS: alle nettverk kall applikasjonen gjør finnes i `src/api/api.ts`. Se gjerne på koden for å finne ut hvilket endepunkt er tatt i brukt for å opprette eller slette en todo.
+
+💡 Vi jobber fortsatt i `source/mocking/mock.ts`. Skriv koden som håndterer den POST request til `/create/todo` som skal til for å legge til en todo. Test din mock ved å bruke `add` knappen i applikasjon. 
+💡 For å kunne ta imot  POST requests på `/create/todo` må vi bruke `post` metode i `fetch-mock`. Denne har en `opts` parameter som inneholder request body. Denne skal vi *parse* for å hente data. 
+```js
+fetchMock.post(
+    "express:/create/todo",
+    (url, opts) => {
+        const jsonObj = JSON.parse(opts.body as string);
+        // her kan du konvertere jsonObj til en Todo
+        return {
+            // her kan du returnere en Todolist som inneholder den samme Todo som du fikk i POST request
+        }
+        },
+    {
+        delay: 1000 * delayfactor,
+    }
+);
+```
+
+<details>
+  <summary>🚨Løsning</summary>
+
+```js
+import { Todo } from "../domain/Todo";
+
+fetchMock.post(
+    "express:/create/todo",
+    (url, opts) => {
+        const jsonObj = JSON. parse(opts.body as string);
+        const todoToBeCreated: Todo = jsonObj.todo;
+
+        return {
+            todoList: [
+                {
+                    text: todoToBeCreated.text,
+                    id: todoToBeCreated.id
+                }],
+        };
+    },
+    {
+        delay: 1000 * delayfactor,
+    }
+);
 ```
 
 </details>
