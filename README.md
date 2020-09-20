@@ -339,7 +339,7 @@ fetchMock.post(
 💡 Du kan bruke en global variabel `todolist` som oppdateres ved GET og POST og initialiseres slik:
 
 ```js
-const todolistResonse: Todolist = {
+const todolistResponse: Todolist = {
   todoList: [{ text: "Hello I'm MOCK", id: 1 }],
 };
 ```
@@ -351,7 +351,7 @@ const todolistResonse: Todolist = {
 fetchMock.get(
   "express:/todolist",
   (url) => {
-    return todolistResonse;
+    return todolistResponse;
   },
   {
     delay: 1000 * delayfactor,
@@ -364,12 +364,12 @@ fetchMock.post(
         const jsonObj = JSON.parse(opts.body as string);
         const todoToBeCreated: Todo = jsonObj.todo;
 
-        todolistResonse.todoList.push({
+        todolistResponse.todoList.push({
             text: todoToBeCreated.text,
             id: todoToBeCreated.id
         });
 
-        return todolistResonse;
+        return todolistResponse;
     },
     {
         delay: 1000 * delayfactor,
@@ -389,7 +389,7 @@ fetchMock.post(
 - GET `/statistic/deleted`
 
 💡 Fortsett å bruke den globale variabelen `todolist` som du oppdaterer etter mock mottar POST `/delete/todo`.
-Test at mock oppfører seg som forventet og fjerner todo-en fra lista i applikasjonen.
+Sjekk visuelt at mock oppfører seg som forventet og fjerner todo-en fra lista i applikasjonen.
 
 <details>
   <summary>🚨Løsning</summary>
@@ -401,12 +401,12 @@ fetchMock.post(
         const jsonObj = JSON.parse(opts.body as string);
         const todoIdToDelete: number = jsonObj.id;
 
-        todolistResonse.todoList = todolistResonse.todoList.filter(function (todo) {
+        todolistResponse.todoList = todolistResponse.todoList.filter(function (todo) {
             return todo.id !== todoIdToDelete;
         });
         nbOfDeletedTodos++;
 
-        return todolistResonse;
+        return todolistResponse;
     },
     {
         delay: 1000 * delayfactor,
