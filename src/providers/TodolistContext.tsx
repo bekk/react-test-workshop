@@ -30,19 +30,19 @@ export const TasksProvider: FunctionComponent = (props) => {
   });
 
   const addTodo = (todo: Todo): void => {
-    createTodoAndReturnUpdatedTodolist(todo).then((todolist) => {
+    createTodoAndReturnUpdatedTodolist(todo).then((todolist: RestTodolist) => {
       setRestTodolist(todolist);
     });
   };
 
   const deleteTodo = (id: number) => {
-    deleteTodoAndReturnUpdatedTodolist(id).then((todolist) => {
+    deleteTodoAndReturnUpdatedTodolist(id).then((todolist: RestTodolist) => {
       setRestTodolist(todolist);
     });
   };
 
   useEffect(() => {
-    fetchTodolist().then((todolist) => {
+    fetchTodolist().then((todolist: RestTodolist) => {
       setRestTodolist(todolist);
     });
   }, []);
