@@ -1,29 +1,21 @@
 import { render } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import React from "react";
 
-test("input renders with some text", () => {
-  // render an input which should update inputValue when something is typed into the input
+test("typing in the input should change its value", () => {
   const { getByRole } = render(<input />);
-
-  // use a getBy-query to get the input element from the container
   const input = getByRole("textbox");
-  expect(input).toHaveValue("");
 
-  // Use user-event to type something
-  userEvent.type(input, "I'm not a robot!");
-  expect(input).toHaveValue("I'm not a robot!");
+  // Oppgave 1d)
 });
 
-test("input should be connected to label", () => {
-  const { getByLabelText } = render(
-    <div>
-      <label htmlFor="my-input">Did you finish all your tasks?</label>
-      <input id="my-input" />
-    </div>
-  );
+// Oppgave 1e)
+/* expect.extend(toHaveNoViolations);
+test("input should be accessible", async () => {
+  const { container } = render(<input />);
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
+}); */
 
-  const input = getByLabelText(/finish/i);
-  userEvent.type(input, "No!");
-  expect(input).toHaveValue("No!");
+test("input should be connected to a label", () => {
+  // Oppgave 1f)
 });
