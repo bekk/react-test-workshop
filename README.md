@@ -240,7 +240,7 @@ Etter at applikasjonen kjører med mock aktivert i trenger vi ikke lenger den lo
 
 Nå kan vi dele oppgaven i bitter
 
-#### Oppgave 3a) mocke GET `/todolist`
+#### Oppgave 3a) Mocke GET `/todolist`
 
 🏆 Når applikasjonen starter sendes en GET request til `/todolist` som returnerer en liste av todos. Vi starter med å legge til flere todos i den todo lista.
 
@@ -270,7 +270,7 @@ fetchMock.get(
 </details>
 <br/>
 
-#### Oppgave 3b) mocke POST `/create/todo`
+#### Oppgave 3b) Mocke POST `/create/todo`
 
 🏆 Hvis du nå prøver å legge til eller fjerne en todd i applikasjonen vil det ikke fungere. Årsaken er at applikasjonen bruker flere endepunkter, og vi har ikke skrevet koden i `mock.ts` for å håndtere disse kallene enda. Dette skal vi gjøre nå.
 
@@ -324,7 +324,7 @@ fetchMock.post(
 </details>
 <br/>
 
-#### Oppgave 3c) en litt smartere mock
+#### Oppgave 3c) Lage en litt smartere mock
 
 🏆 Hittil har vi hardkodet response GET og POST. Man hva kan vi gjøre for å gjøre applikasjonen enda mer brukbar med `mock.ts`
 
