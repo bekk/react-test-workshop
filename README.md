@@ -289,7 +289,91 @@ test("AddTodo should be accessible", async () => {
 
 ### Oppgave 2d)
 
-🏆 Test `TodoList`.
+🏆 Sjekk at en tom `TodoList` innholder en tittel og en tekst som sier at listen er tom.
+
+💡 Bruk `render(<TodoList todoList={[]} deleteTodo={() => {}} />);` for at vise en tom TodoList. Funksjonen `deleteTodo` trenger vi ikke å gjøre noet med.
+
+<details>
+ <summary>🚨 Løsning</summary>
+
+```js
+test("TodoList should render with the title 'List'", () => {
+  const { getByText } = render(
+    <TodoList todoList={[]} deleteTodo={() => {}} />
+  );
+  const title = getByText(/list/i);
+  expect(title).toBeInTheDocument();
+
+  const text = getByText(/you've finished all your tasks/i);
+  expect(text).toBeInTheDocument();
+});
+```
+
+</details>
+
+### Oppgave 2e)
+
+🏆 Sjekk at `TodoList` er accessible med `jest-axe` og fiks feilen.
+
+💡 I stedet for `todoList={[]`, bruk følgende liste som prop `todoList={list}`:
+
+```js
+const list: Todo[] = [
+  { text: "input 1", id: 1 },
+  { text: "input 2", id: 2 },
+];
+```
+
+<details>
+ <summary>🚨 Løsning</summary>
+
+```js
+expect.extend(toHaveNoViolations);
+test("TodoList is accessible", async () => {
+  const list: Todo[] = [
+    { text: "input 1", id: 1 },
+    { text: "input 2", id: 2 },
+  ];
+  const { container } = render(
+    <TodoList todoList={list} deleteTodo={() => {}} />
+  );
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
+});
+```
+
+</details>
+
+### Oppgave f)
+
+🏆 Sjekk at `TodoList` viser riktig antall elementer i listen.
+
+💡 Bruk samme liste som steg øver ved render av `TodoList`. Querien kan brukes for at`getAllByRole("listitem)"` hente hem alle `<li>`-elementer i containeren.
+
+<details>
+ <summary>🚨 Løsning</summary>
+
+```js
+test("TodoList should show the list given as input", () => {
+  const list: Todo[] = [
+    { text: "input 1", id: 1 },
+    { text: "input 2", id: 2 },
+  ];
+  const { getByText, getAllByRole } = render(
+    <TodoList todoList={list} deleteTodo={() => {}} />
+  );
+
+  const item1 = getByText(/input 1/i);
+  expect(item1).toBeInTheDocument();
+  const item2 = getByText(/input 2/i);
+  expect(item2).toBeInTheDocument();
+
+  const items = getAllByRole("listitem");
+  expect(items.length).toBe(2);
+});
+```
+
+</details>
 
 ## Oppgave 2: Mock en modul med `jest.mock`
 
