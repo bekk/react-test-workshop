@@ -223,23 +223,21 @@ test("input should be connected to a label", () => {
 
 ### Oppgave 2a)
 
-🏆 Sjekk at komponenten `InputWithLabel` innholder en `label` og en `input` som er koblet sammen.
+🏆 Sjekk at komponenten `AddTodo` innholder en header, label og et input-felt.
 
-💡 Dette testet er veldig likt `input`-testene fra `basics`-delen.
+💡 Querien `getByLabelText` kan brukes for at sjekke at både `label` og `input`-feltene blir rendered. Hvis noen mangler vil querien gje error.
 
 <details>
  <summary>🚨 Løsning</summary>
 
 ```js
-test("InputWithLabel should render label and input", () => {
-  const { getByText, getByLabelText } = render(
-    <InputWithLabel label="etikett" />
-  );
+test("AddTodo should render title, label and input", () => {
+  const { getByLabelText, getByText } = render(<AddTodo onSubmit={() => {}} />);
 
-  const label = getByText(/etikett/i);
-  expect(label).toBeInTheDocument();
+  const title = getByText(/add item/i);
+  expect(title).toBeInTheDocument();
 
-  const input = getByLabelText(/etikett/i);
+  const input = getByLabelText(/new item/i);
   expect(input).toBeInTheDocument();
 });
 ```
@@ -248,25 +246,24 @@ test("InputWithLabel should render label and input", () => {
 
 ### Oppgave 2b)
 
-🏆 Sjekk at komponenten input-elementet fra `InputWithLabel` for et oppdatert value hvis man skriver noe i det.
+🏆 Sjekk at `AddTodo` innholder et input-felt og at verdiet blir oppdatert hvis man skriver noet i feltet.
 
 💡 Når man har funnit input-elementet med en query går det an at bruke `fireEvent.change()` eller `userEvent.type()` for at skrive noet i input-feltet.
+
+💡 `expect().toHaveValue` kan brukes for at sjekke verdiet i input-feltet.
 
 <details>
  <summary>🚨 Løsning</summary>
 
 ```js
-test("InputWithLabel should change value when the input is changed", () => {
-  const { getByLabelText } = render(
-    <InputWithLabel label="What's your favorite pizza topping?" />
-  );
+test("AddTodo should change its value when the user types something", () => {
+  const { getByLabelText } = render(<AddTodo onSubmit={() => {}} />);
 
-  const input = getByLabelText(/pizza/i);
-  expect(input).toBeInTheDocument();
+  const input = getByLabelText(/new item/i);
   expect(input).toHaveValue("");
 
-  fireEvent.change(input, { target: { value: "Banana!" } });
-  expect(input).toHaveValue("Banana!");
+  userEvent.type(input, "I should do this!");
+  expect(input).toHaveValue("I should do this!");
 });
 ```
 
@@ -274,23 +271,25 @@ test("InputWithLabel should change value when the input is changed", () => {
 
 ### Oppgave 2c)
 
-🏆 Sjekk at `InputWithLabel` er accessible med `jest-axe`.
+🏆 Sjekk at `AddTodo` er accessible med `jest-axe`.
 
 <details>
  <summary>🚨 Løsning</summary>
 
 ```js
 expect.extend(toHaveNoViolations);
-test("InputWithLabel should be accessible", async () => {
-  const { container } = render(
-    <InputWithLabel label="Is this component accessible?" />
-  );
+test("AddTodo should be accessible", async () => {
+  const { container } = render(<AddTodo onSubmit={() => {}} />);
   const results = await axe(container);
   expect(results).toHaveNoViolations();
 });
 ```
 
 </details>
+
+### Oppgave 2d)
+
+🏆 Test `TodoList`.
 
 ## Oppgave 2: Mock en modul med `jest.mock`
 
