@@ -215,6 +215,83 @@ test("input should be connected to a label", () => {
 
 </details>
 
+## Oppgave 2: Test komponenter fra Todo-list
+
+💡 Komponentene som skal testes finner du i mappen `src/components`.
+
+💡 Functional components kan bli testet med `render(<MyComponent prop={prop}/>)`
+
+### Oppgave 2a)
+
+🏆 Sjekk at komponenten `InputWithLabel` innholder en `label` og en `input` som er koblet sammen.
+
+💡 Dette testet er veldig likt `input`-testene fra `basics`-delen.
+
+<details>
+ <summary>🚨 Løsning</summary>
+
+```js
+test("InputWithLabel should render label and input", () => {
+  const { getByText, getByLabelText } = render(
+    <InputWithLabel label="etikett" />
+  );
+
+  const label = getByText(/etikett/i);
+  expect(label).toBeInTheDocument();
+
+  const input = getByLabelText(/etikett/i);
+  expect(input).toBeInTheDocument();
+});
+```
+
+</details>
+
+### Oppgave 2b)
+
+🏆 Sjekk at komponenten input-elementet fra `InputWithLabel` for et oppdatert value hvis man skriver noe i det.
+
+💡 Når man har funnit input-elementet med en query går det an at bruke `fireEvent.change()` eller `userEvent.type()` for at skrive noet i input-feltet.
+
+<details>
+ <summary>🚨 Løsning</summary>
+
+```js
+test("InputWithLabel should change value when the input is changed", () => {
+  const { getByLabelText } = render(
+    <InputWithLabel label="What's your favorite pizza topping?" />
+  );
+
+  const input = getByLabelText(/pizza/i);
+  expect(input).toBeInTheDocument();
+  expect(input).toHaveValue("");
+
+  fireEvent.change(input, { target: { value: "Banana!" } });
+  expect(input).toHaveValue("Banana!");
+});
+```
+
+</details>
+
+### Oppgave 2c)
+
+🏆 Sjekk at `InputWithLabel` er accessible med `jest-axe`.
+
+<details>
+ <summary>🚨 Løsning</summary>
+
+```js
+expect.extend(toHaveNoViolations);
+test("InputWithLabel should be accessible", async () => {
+  const { container } = render(
+    <InputWithLabel label="Is this component accessible?" />
+  );
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
+});
+```
+
+</details>
+
 ## Oppgave 2: Mock en modul med `jest.mock`
 
 Se gjerne på "Mocking" i tilhørende [presentasjon](https://joakimgy.github.io/react-test-workshop/#/) om du ikke har gjort det enda.

@@ -1,7 +1,8 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import { TodoList, Todo } from "components/TodoList";
+import { TodoList } from "components/TodoList";
 import { toHaveNoViolations, axe } from "jest-axe";
+import { Todo } from "domain/Todo";
 
 // API documentation at https://testing-library.com/docs/dom-testing-library/api-queries
 

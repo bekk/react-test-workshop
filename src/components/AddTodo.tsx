@@ -6,11 +6,11 @@ type AddTodoProps = {
   addTodo: (todo: Todo) => void;
 };
 
-export const AddTodo: FunctionComponent<AddTodoProps> = (props) => {
+export const AddTodo: FunctionComponent<AddTodoProps> = ({ addTodo }) => {
   const [input, setInput] = useState("");
 
   function handleSubmit(e: React.FormEvent) {
-    props.addTodo({ text: input, id: Math.random() });
+    addTodo({ text: input, id: Math.random() });
     setInput("");
     e.preventDefault();
   }
