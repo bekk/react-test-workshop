@@ -6,7 +6,7 @@ import { TodoList } from "./components/TodoList";
 import {
   TasksProvider,
   todolistContext,
-  TodolistContextType,
+  TodolistContextType
 } from "./providers/TodolistContext";
 
 const App: FunctionComponent = () => {
@@ -44,7 +44,7 @@ const AppContent: FunctionComponent = () => {
           marginTop: "2rem",
           color: "black",
           backgroundColor: "grey",
-          height: 5,
+          height: 5
         }}
       />
       <CompletionRate todoList={todoList.data} />
