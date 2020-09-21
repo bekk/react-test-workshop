@@ -6,7 +6,7 @@ import { TodoList } from "./components/TodoList";
 import {
   TasksProvider,
   todolistContext,
-  TodolistContextType,
+  TodolistContextType
 } from "./providers/TodolistContext";
 
 const App: FunctionComponent = () => {
@@ -38,13 +38,13 @@ const AppContent: FunctionComponent = () => {
       Add things that you need to do here, and then remove them when you've
       solved them!
       <TodoList todoList={todoList.data.todoList} deleteTodo={deleteTodo} />
-      <AddTodo addTodo={addTodo} />
+      <AddTodo onSubmit={addTodo} />
       <hr
         style={{
           marginTop: "2rem",
           color: "black",
           backgroundColor: "grey",
-          height: 5,
+          height: 5
         }}
       />
       <CompletionRate todoList={todoList.data} />

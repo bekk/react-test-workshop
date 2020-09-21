@@ -215,6 +215,166 @@ test("input should be connected to a label", () => {
 
 </details>
 
+## Oppgave 2: Test komponenter fra Todo-list
+
+💡 Komponentene som skal testes finner du i mappen `src/components`.
+
+💡 Functional components kan bli testet med `render(<MyComponent prop={prop}/>)`
+
+### Oppgave 2a)
+
+🏆 Sjekk at komponenten `AddTodo` innholder en header, label og et input-felt.
+
+💡 Querien `getByLabelText` kan brukes for at sjekke at både `label` og `input`-feltene blir rendered. Hvis noen mangler vil querien gje error.
+
+<details>
+ <summary>🚨 Løsning</summary>
+
+```js
+test("AddTodo should render title, label and input", () => {
+  const { getByLabelText, getByText } = render(<AddTodo onSubmit={() => {}} />);
+
+  const title = getByText(/add item/i);
+  expect(title).toBeInTheDocument();
+
+  const input = getByLabelText(/new item/i);
+  expect(input).toBeInTheDocument();
+});
+```
+
+</details>
+
+### Oppgave 2b)
+
+🏆 Sjekk at `AddTodo` innholder et input-felt og at verdiet blir oppdatert hvis man skriver noet i feltet.
+
+💡 Når man har funnit input-elementet med en query går det an at bruke `fireEvent.change()` eller `userEvent.type()` for at skrive noet i input-feltet.
+
+💡 `expect().toHaveValue` kan brukes for at sjekke verdiet i input-feltet.
+
+<details>
+ <summary>🚨 Løsning</summary>
+
+```js
+test("AddTodo should change its value when the user types something", () => {
+  const { getByLabelText } = render(<AddTodo onSubmit={() => {}} />);
+
+  const input = getByLabelText(/new item/i);
+  expect(input).toHaveValue("");
+
+  userEvent.type(input, "I should do this!");
+  expect(input).toHaveValue("I should do this!");
+});
+```
+
+</details>
+
+### Oppgave 2c)
+
+🏆 Sjekk at `AddTodo` er accessible med `jest-axe`.
+
+<details>
+ <summary>🚨 Løsning</summary>
+
+```js
+expect.extend(toHaveNoViolations);
+test("AddTodo should be accessible", async () => {
+  const { container } = render(<AddTodo onSubmit={() => {}} />);
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
+});
+```
+
+</details>
+
+### Oppgave 2d)
+
+🏆 Sjekk at en tom `TodoList` innholder en tittel og en tekst som sier at listen er tom.
+
+💡 Bruk `render(<TodoList todoList={[]} deleteTodo={() => {}} />);` for at vise en tom TodoList. Funksjonen `deleteTodo` trenger vi ikke å gjøre noet med.
+
+<details>
+ <summary>🚨 Løsning</summary>
+
+```js
+test("TodoList should render with the title 'List'", () => {
+  const { getByText } = render(
+    <TodoList todoList={[]} deleteTodo={() => {}} />
+  );
+  const title = getByText(/list/i);
+  expect(title).toBeInTheDocument();
+
+  const text = getByText(/you've finished all your tasks/i);
+  expect(text).toBeInTheDocument();
+});
+```
+
+</details>
+
+### Oppgave 2e)
+
+🏆 Sjekk at `TodoList` er accessible med `jest-axe` og fiks feilen.
+
+💡 I stedet for `todoList={[]`, bruk følgende liste som prop `todoList={list}`:
+
+```js
+const list: Todo[] = [
+  { text: "input 1", id: 1 },
+  { text: "input 2", id: 2 },
+];
+```
+
+<details>
+ <summary>🚨 Løsning</summary>
+
+```js
+expect.extend(toHaveNoViolations);
+test("TodoList is accessible", async () => {
+  const list: Todo[] = [
+    { text: "input 1", id: 1 },
+    { text: "input 2", id: 2 },
+  ];
+  const { container } = render(
+    <TodoList todoList={list} deleteTodo={() => {}} />
+  );
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
+});
+```
+
+</details>
+
+### Oppgave f)
+
+🏆 Sjekk at `TodoList` viser riktig antall elementer i listen.
+
+💡 Bruk samme liste som steg øver ved render av `TodoList`. Querien kan brukes for at`getAllByRole("listitem)"` hente hem alle `<li>`-elementer i containeren.
+
+<details>
+ <summary>🚨 Løsning</summary>
+
+```js
+test("TodoList should show the list given as input", () => {
+  const list: Todo[] = [
+    { text: "input 1", id: 1 },
+    { text: "input 2", id: 2 },
+  ];
+  const { getByText, getAllByRole } = render(
+    <TodoList todoList={list} deleteTodo={() => {}} />
+  );
+
+  const item1 = getByText(/input 1/i);
+  expect(item1).toBeInTheDocument();
+  const item2 = getByText(/input 2/i);
+  expect(item2).toBeInTheDocument();
+
+  const items = getAllByRole("listitem");
+  expect(items.length).toBe(2);
+});
+```
+
+</details>
+
 ## Oppgave 2: Mock en modul med `jest.mock`
 
 Se gjerne på "Mocking" i tilhørende [presentasjon](https://joakimgy.github.io/react-test-workshop/#/) om du ikke har gjort det enda.
