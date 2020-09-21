@@ -13,13 +13,13 @@ import {
 import { Todo } from "../domain/Todo";
 
 export type TodolistContextType = {
-  restTodolist: RestTodolist;
+  todoList: RestTodolist;
   addTodo: (value: Todo) => void;
   deleteTodo: (value: number) => void;
 };
 
 export const todolistContext = createContext<TodolistContextType>({
-  restTodolist: { status: RestStatus.NotLoadedYet },
+  todoList: { status: RestStatus.NotLoadedYet },
   addTodo: () => {},
   deleteTodo: () => {},
 });
@@ -49,7 +49,7 @@ export const TasksProvider: FunctionComponent = (props) => {
 
   const Provider = todolistContext.Provider;
   return (
-    <Provider value={{ restTodolist, addTodo, deleteTodo }}>
+    <Provider value={{ todoList: restTodolist, addTodo, deleteTodo }}>
       {props.children}
     </Provider>
   );
