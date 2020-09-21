@@ -1,13 +1,34 @@
-## React testing workshop
+# React testing workshop 🧪
+
+Bekk React faggruppe - September 2020
+
+---
+
+## Plan for workshop 📋
 
 - testing av React-komponenter
 - jest
 - react testing library
-- mocking med Jest | fetch-mock
+- mocking med jest.mock og fetch-mock
 
 ---
 
-## React testing library
+### Hva er en god test?
+
+Egenskaper av en god test
+
+- Rask
+- Isolert
+- Forutsigtbar og repeterbar
+- Self-Checking (success ✅ eller failure ❌)
+
+---
+
+## Testing av React komponenter
+
+---
+
+### React testing library
 
 > The @testing-library family of packages helps you test UI components in a user-centric way.
 
@@ -29,7 +50,7 @@ Note: speaker notes FTW!
 
 ---
 
-## render
+### render
 
 ```JSX
 const {/\* \*/} = render(Component):
@@ -47,7 +68,7 @@ const {/\* \*/} = render(Component):
 
 ---
 
-## jest expect
+### jest expect
 
 - test
 
@@ -55,31 +76,109 @@ const {/\* \*/} = render(Component):
 
 ---
 
-## fire event
+### fire event
 
 ---
 
-## Mock
+## Mocking 🦸‍♀️
+
+---
+
+### Hvorofor trenger vi mock? 🤔
+
+En applikasjon er ofte avhengig av eksterne ressurser. Det kan være et API som nås over nettverket, en fil på filsystem eller en system ressurs (f.eks. dagensdato)
+
+Disse eksterne ressursene skaper uforutsigtbarhet ved testing. Vi vil ikke at testene våre feiler fordi en ekstern ressurs ikke er tilgjengelig når testen kjører.
+
+---
+
+> Mocking is the action of creating objects that mimic the behavior of real objects in controlled ways
+
+---
+
+### Mocking med jest
+
+👉 Vi bruker `jest.mock` for å mocke funksjoner av en modul med uforutsigtbare avhengigheter
+
+For eksempel: en funksjon `getTodaysDate()` som ligger i en modul `date-utils` og henter system dato
+
+---
+
+Kode 🧑🏿‍💻
+
+```js
+// Her oppretter vi en mock av getTodaysDate()
+// og spesifiserer hva den skal returnere
+jest.mock("../../utils/date-utils", () => {
+  return {
+    getTodaysDate: jest.fn((lang: string) => "Monday"),
+  };
+});
+// functionToTest() har avhengighet til getTodaysDate()
+// og kommer til å bruke mock 👆i neste instruksjonen
+const result = functionToTest();
+
+// da kan vi skrive en forutsigtbar test
+// som sjekker verdi av "result"
+```
+
+---
+
+### Mocke http kall med fetch-mock 🛠
+
+Før vi ser på kode som bruker `fetch-mock` skal vi vise noen illustrasjoner som beskriver hvordan en React app interagerer med nettverket.
+
+💡 På siste illustrasjon viser vi hvor vi kan posisjonere en mock for å kunne kjøre applikasjon uten backend
+
+---
+
+##### Hvordan fungerer en React-app med en backend?
+
+![Skjema av en real-world React app](/img/mocking-schema-1.png?raw=true)
+En React app med avhengigheter til et eksternt API
+
+---
+
+##### Hvordan kjøres applikasjon lokalt?
+
+![Skjema av en real-world React app](/img/mocking-schema-2.png?raw=true)
+Todo-list sammen med _server.js_
+
+---
+
+##### Hvordan kan vi kjøre lokalt med en mock?
+
+![Skjema av en real-world React app](/img/mocking-schema-3.png?raw=true)
+Todo-list med mock
+
+---
+
+### fetch-mock 🛠
 
 > The fetch-mock library will let you simulate and manage interactions with other applications by intercepting all API calls done with fetch
 
 ```JSX
 import fetchMock from "fetch-mock";
 
-let delayfaktor = 1;
-
 fetchMock.get(
   "express:/todolist",
   (url) => {
     return {
-      todoList: [{ text: "Hello I'm MOCK", id: "9876543210" }],
+      todoList: [{ text: "Hello I'm MOCK", id: "1" }],
     };
-  },
-  {
-    delay: 1000 * delayfaktor,
   }
 );
 ```
+
+---
+
+### bruk av fetch-mock i oppgaver
+
+Vi bruker vi `fetch-mock` for to forskjellige hensikt i denne workshoppen
+
+👉 i **_oppgave 3_** skal du bruke `fetch-mock` for å kunne teste en funksjon som sender request til backend
+
+👉 i **_oppgave 4_** ønsker vi å kjøre applikasjon lokalt uten `server.js`. Da skal du kode en mock med `fetch-mock` som "oppfører seg" som backend
 
 ---
 
