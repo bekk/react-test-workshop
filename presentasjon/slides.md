@@ -20,7 +20,8 @@ Egenskaper av en god test
 - Rask
 - Isolert
 - Forutsigtbar og repeterbar
-- Self-Checking (success ✅ eller failure ❌)
+- Uavhengig av implementasjon til den koden som er testet
+- Self-Checking (suksess ✅ eller feil ❌)
 
 ---
 
