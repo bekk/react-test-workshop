@@ -71,7 +71,7 @@ Kjører alle tester i "watch mode". Ved å trykke på `a`-tasten kjører alle te
 
 ### Oppgave 1a)
 
-🏆 Lage et test som bruker [render](https://testing-library.com/docs/react-testing-library/api#render) fra `@testing-library/react` for at teste at HTML-elementet `paragraph`. Bruk [getByText](https://testing-library.com/docs/react-testing-library/cheatsheet#text-match-options) for a finne paragraph-elementet som blir laget av `render` og sjekk at det finnes i documentet gjenom at bruke `expect(element).toBeInDocument()`.
+🏆 Lage et test som bruker [render](https://testing-library.com/docs/react-testing-library/api#render) fra `@testing-library/react` for å teste at HTML-elementet `paragraph`. Bruk [getByText](https://testing-library.com/docs/react-testing-library/cheatsheet#text-match-options) for å finne paragraph-elementet som blir laget av `render` og sjekk at det finnes i dokumentet gjennom å bruke `expect(element).toBeInDocument()`.
 
 <details>
  <summary>🚨 Løsning</summary>
@@ -93,7 +93,7 @@ test("paragraph renders with some text", () => {
 
 🏆 Bruk `render` for å teste en HTML-`button`. På samme måte som for paragraph, bruk en query (f.eks. `getByText`) for å sjekke at knappen har en tekst.
 
-💡 [Her](https://testing-library.com/docs/guide-which-query) kan du lese litt om hvilke queries skaperne bak DOM testing library rekommenderer at man bruker.
+💡 [Her](https://testing-library.com/docs/guide-which-query) kan du lese litt om hvilke queries skaperne bak DOM testing library anbefaller at man bruker.
 
 <details>
  <summary>🚨 Løsning</summary>
@@ -115,9 +115,9 @@ test("button renders with some text", () => {
 
 ### Oppgave 1c)
 
-🏆 Sjekk at `button` sin `onClick`-property fungerer. Når man klikker på knappen skal telleren `counter` øke med et.
+🏆 Sjekk at `button` sin `onClick`-property fungerer. Når man klikker på knappen skal telleren `counter` øke med én.
 
-💡 For at simulere et klikk på knappen kan man bruke `fireEvent.click(element)` eller `userEvent.click(element)`.
+💡 For å simulere et klikk på knappen kan man bruke `fireEvent.click(element)` eller `userEvent.click(element)`.
 
 <details>
  <summary>🚨 Løsning</summary>
@@ -145,11 +145,11 @@ test("button should call onClick when clicked", () => {
 
 ### Oppgave 1d)
 
-🏆 Bruk `render` for å teste et `input`-element. Sjekk at standardverdien til `value` er en tom string og at `value` blir oppdatert hvis man skriver noet i input-feltet.
+🏆 Bruk `render` for å teste et `input`-element. Sjekk at standardverdien til `value` er `""` og at `value` blir oppdatert hvis man skriver noe i input-feltet.
 
-💡 `userEvent.type(element, tekst)` kan brukes for at skrive en tekst i feltet.
+💡 `userEvent.type(element, tekst)` kan brukes for å skrive en tekst i feltet.
 
-💡 `expect(element).toHaveValue()` kan brukes for at sjekke at `value` er som forventet.
+💡 `expect(element).toHaveValue()` kan brukes for å sjekke at `value` er som forventet.
 
 <details>
  <summary>🚨 Løsning</summary>
@@ -169,7 +169,7 @@ test("typing in the input should change its value", () => {
 
 ### Oppgave 1e)
 
-🏆 Bruk `jest-axe` for å sjekke at input-feltet er UU-vennlig (accessible). Hvis noet er feil, fiks feilen!
+🏆 Bruk `jest-axe` for å sjekke at input-feltet er UU-vennlig (accessible). Hvis noe er feil, fiks feilen!
 
 <details>
  <summary>🚨 Løsning</summary>
@@ -192,7 +192,7 @@ test("input should be accessible", async () => {
 
 ### Oppgave 1f)
 
-🏆 Teste den UU-vennlige label+input-komponenten fra steget øver med `render`. Bruk `getByLabelText` for at sjekke at label er koblet sammen med input.
+🏆 Teste den UU-vennlige label+input-komponenten fra steget over med `render`. Bruk `getByLabelText` for å sjekke at label er koblet sammen med input.
 
 <details>
  <summary>🚨 Løsning</summary>
@@ -225,7 +225,7 @@ test("input should be connected to a label", () => {
 
 🏆 Sjekk at komponenten `AddTodo` innholder en header, label og et input-felt.
 
-💡 Querien `getByLabelText` kan brukes for at sjekke at både `label` og `input`-feltene blir rendered. Hvis noen mangler vil querien gje error.
+💡 Querien `getByLabelText` kan brukes for å sjekke at både `label` og `input`-feltene blir rendered. Hvis noe mangler vil querien gi error.
 
 <details>
  <summary>🚨 Løsning</summary>
@@ -246,11 +246,11 @@ test("AddTodo should render title, label and input", () => {
 
 ### Oppgave 2b)
 
-🏆 Sjekk at `AddTodo` innholder et input-felt og at verdiet blir oppdatert hvis man skriver noet i feltet.
+🏆 Sjekk at `AddTodo` innholder et input-felt og at verdiet blir oppdatert hvis man skriver noe i feltet.
 
-💡 Når man har funnit input-elementet med en query går det an at bruke `fireEvent.change()` eller `userEvent.type()` for at skrive noet i input-feltet.
+💡 Når man har funnit input-elementet med en query går det an å bruke `fireEvent.change()` eller `userEvent.type()` for å skrive noe i input-feltet.
 
-💡 `expect().toHaveValue` kan brukes for at sjekke verdiet i input-feltet.
+💡 `expect().toHaveValue` kan brukes for å sjekke verdien i input-feltet.
 
 <details>
  <summary>🚨 Løsning</summary>
@@ -289,9 +289,9 @@ test("AddTodo should be accessible", async () => {
 
 ### Oppgave 2d)
 
-🏆 Sjekk at en tom `TodoList` innholder en tittel og en tekst som sier at listen er tom.
+🏆 Sjekk at en tom `TodoList` innholder en header og en tekst som sier at listen er tom.
 
-💡 Bruk `render(<TodoList todoList={[]} deleteTodo={() => {}} />);` for at vise en tom TodoList. Funksjonen `deleteTodo` trenger vi ikke å gjøre noet med.
+💡 Bruk `render(<TodoList todoList={[]} deleteTodo={() => {}} />);` for å vise en tom TodoList. Funksjonen `deleteTodo` trenger vi ikke å gjøre noe med.
 
 <details>
  <summary>🚨 Løsning</summary>
@@ -313,9 +313,9 @@ test("TodoList should render with the title 'List'", () => {
 
 ### Oppgave 2e)
 
-🏆 Sjekk at `TodoList` er accessible med `jest-axe` og fiks feilen.
+🏆 Sjekk at `TodoList` er UU-vennlig med `jest-axe` og fiks eventuelle feil.
 
-💡 I stedet for `todoList={[]`, bruk følgende liste som prop `todoList={list}`:
+💡 I stedet for `todoList={[]`, bruk følgende liste som props `todoList={list}`:
 
 ```js
 const list: Todo[] = [
@@ -348,7 +348,7 @@ test("TodoList is accessible", async () => {
 
 🏆 Sjekk at `TodoList` viser riktig antall elementer i listen.
 
-💡 Bruk samme liste som steg øver ved render av `TodoList`. Querien kan brukes for at`getAllByRole("listitem)"` hente hem alle `<li>`-elementer i containeren.
+💡 Bruk samme liste som i steget over ved render av `TodoList`. Querien `getAllByRole("listitem)"` kan brukes for å hente hjem alle `<li>`-elementer i containeren.
 
 <details>
  <summary>🚨 Løsning</summary>
