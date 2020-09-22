@@ -4,7 +4,7 @@ Nå ska vi lære oss å teste React-kode!
 
 ## Kom i gang
 
-Det finnes en tilhørende [presentasjon](https://joakimgy.github.io/react-test-workshop/#/) som kan være grei å se gjennom for å komme i gang med denne workshopen. Ellers er det bare å følge trinnene nedenfor for å komme i gang!
+Det finnes en tilhørende [presentasjon](https://bekk.github.io/react-test-workshop/#/) som kan være grei å se gjennom for å komme i gang med denne workshopen. Ellers er det bare å følge trinnene nedenfor for å komme i gang!
 
 ### Dette må du ha før du starter
 
@@ -377,7 +377,7 @@ test("TodoList should show the list given as input", () => {
 
 ## Oppgave 2: Mock en modul med `jest.mock`
 
-Se gjerne på "Mocking" i tilhørende [presentasjon](https://joakimgy.github.io/react-test-workshop/#/) om du ikke har gjort det enda.
+Se gjerne på "Mocking" i tilhørende [presentasjon](https://bekk.github.io/react-test-workshop/#/) om du ikke har gjort det enda.
 
 Koden vi skriver er noen gang avhengig av ressurser vi ikke har kontroll på (uforutsigtbar) eller ikke kan få lett tak i (verdi av CPU bruk, dato, en fil, ...)
 
