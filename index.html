@@ -12,14 +12,30 @@
   </head>
   <body>
     <div class="reveal">
-      <div class="slides"><section  data-markdown><script type="text/template">## React testing workshop
+      <div class="slides"><section  data-markdown><script type="text/template"># React testing workshop 🧪
+
+Bekk React faggruppe - September 2020
+</script></section><section  data-markdown><script type="text/template">
+## Plan for workshop 📋
 
 - testing av React-komponenter
 - jest
 - react testing library
-- mocking med Jest | fetch-mock
+- mocking med jest.mock og fetch-mock
 </script></section><section  data-markdown><script type="text/template">
-## React testing library
+### Hva er en god test?
+
+Egenskaper av en god test
+
+- Rask
+- Isolert
+- Forutsigtbar og repeterbar
+- Uavhengig av implementasjon i koden som testes
+- Self-Checking (suksess ✅ eller feil ❌)
+</script></section><section  data-markdown><script type="text/template">
+## Testing av React komponenter
+</script></section><section  data-markdown><script type="text/template">
+### React testing library
 
 > The @testing-library family of packages helps you test UI components in a user-centric way.
 
@@ -39,7 +55,7 @@ test("paragraph renders text", () => {
 
 <aside class="notes"><p>speaker notes FTW!</p>
 </aside></script></section><section  data-markdown><script type="text/template">
-## render
+### render
 
 ```JSX
 const {/\* \*/} = render(Component):
@@ -55,35 +71,93 @@ const {/\* \*/} = render(Component):
 
 - container reference to the DOM node where the component is mounted
 </script></section><section  data-markdown><script type="text/template">
-## jest expect
+### jest expect
 
 - test
 
 - `expect(result).toBe(expected)`
 </script></section><section  data-markdown><script type="text/template">
-## fire event
+### fire event
 </script></section><section  data-markdown><script type="text/template">
-## Mock
+## Mocking 🦸‍♀️
+</script></section><section  data-markdown><script type="text/template">
+### Hvorofor trenger vi mock? 🤔
+
+En applikasjon er ofte avhengig av eksterne ressurser. Det kan være et API som nås over nettverket, en fil på filsystem eller en system ressurs (f.eks. dagensdato)
+
+Disse eksterne ressursene skaper uforutsigtbarhet ved testing. Vi vil ikke at testene våre feiler fordi en ekstern ressurs ikke er tilgjengelig når testen kjører.
+</script></section><section  data-markdown><script type="text/template">
+> Mocking is the action of creating objects that mimic the behavior of real objects in controlled ways
+</script></section><section  data-markdown><script type="text/template">
+### Mocking med jest
+
+👉 Vi bruker `jest.mock` for å mocke funksjoner av en modul med uforutsigtbare avhengigheter
+
+For eksempel: en funksjon `getTodaysDate()` som ligger i en modul `date-utils` og henter system dato
+</script></section><section  data-markdown><script type="text/template">
+Kode 🧑🏿‍💻
+
+```js
+// Her oppretter vi en mock av getTodaysDate()
+// og spesifiserer hva den skal returnere
+jest.mock("../../utils/date-utils", () => {
+  return {
+    getTodaysDate: jest.fn((lang: string) => "Monday"),
+  };
+});
+// functionToTest() har avhengighet til getTodaysDate()
+// og kommer til å bruke mock 👆i neste instruksjonen
+const result = functionToTest();
+
+// da kan vi skrive en forutsigtbar test
+// som sjekker verdi av "result"
+```
+</script></section><section  data-markdown><script type="text/template">
+### Mocke http kall med fetch-mock 🛠
+
+Før vi ser på kode som bruker `fetch-mock` skal vi vise noen illustrasjoner som beskriver hvordan en React app interagerer med nettverket.
+
+💡 På siste illustrasjon viser vi hvor vi kan posisjonere en mock for å kunne kjøre applikasjon uten backend
+</script></section><section  data-markdown><script type="text/template">
+##### Hvordan fungerer en React-app med en backend?
+
+![Skjema av en real-world React app](/img/mocking-schema-1.png)
+En React app med avhengigheter til et eksternt API
+</script></section><section  data-markdown><script type="text/template">
+##### Hvordan kjøres applikasjon lokalt?
+
+![Skjema av en real-world React app](/img/mocking-schema-2.png)
+Todo-list sammen med _server.js_
+</script></section><section  data-markdown><script type="text/template">
+##### Hvordan kan vi kjøre lokalt med en mock?
+
+![Skjema av en real-world React app](/img/mocking-schema-3.png)
+Todo-list med mock
+</script></section><section  data-markdown><script type="text/template">
+### fetch-mock 🛠
 
 > The fetch-mock library will let you simulate and manage interactions with other applications by intercepting all API calls done with fetch
 
 ```JSX
 import fetchMock from "fetch-mock";
 
-let delayfaktor = 1;
-
 fetchMock.get(
   "express:/todolist",
   (url) => {
     return {
-      todoList: [{ text: "Hello I'm MOCK", id: "9876543210" }],
+      todoList: [{ text: "Hello I'm MOCK", id: "1" }],
     };
-  },
-  {
-    delay: 1000 * delayfaktor,
   }
 );
 ```
+</script></section><section  data-markdown><script type="text/template">
+### bruk av fetch-mock i oppgaver
+
+Vi bruker vi `fetch-mock` for to forskjellige hensikt i denne workshoppen
+
+👉 i **_oppgave 3_** skal du bruke `fetch-mock` for å kunne teste en funksjon som sender request til backend
+
+👉 i **_oppgave 4_** ønsker vi å kjøre applikasjon lokalt uten `server.js`. Da skal du kode en mock med `fetch-mock` som "oppfører seg" som backend
 </script></section><section  data-markdown><script type="text/template">
 ## Åpne spørsmål
 
