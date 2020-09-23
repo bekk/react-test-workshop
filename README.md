@@ -385,10 +385,10 @@ Koden vi skriver er noen gang avhengig av ressurser vi ikke har kontroll på (uf
 
 En måte å teste koden som bruker en sånn ressurs er å _mocke_ den. Det vil si at vi erstatter den ressursen vi trenger med kode som oppfører seg likt.
 
-🏆 Funksjonen `getMasteryLevel(completionRate: number, lang: string)` i `src/utils/mastery-level-utils` returnerer en enkel tekst som inneholder bl.a. dagens dato. Vi skal skrive en test som sjekker returverdi, uten å være avhengig av hvilken dag testen kjører.
+🏆 Funksjonen `getWeeklyWorloadStatus(completionRate: number)` i `src/utils/weekly-workload-utils` returnerer en enkel tekst som inneholder bl.a. dagens dato. Vi skal skrive en test som sjekker returverdi, uten å være avhengig av hvilken dag testen kjører.
 
-💡 `getMasteryLevel` som vi vil teste bruker `getTodaysDate` i `src/utils/date-utils` for å hente ut dagens dato. Bruk `jest.mock` for å ta kontroll over hele `date-utils` modulen og mock `getTodaysDate(lang: string)` funksjonen.
-`jest.mock` skal brukes i test modulen `src/__tests__/mocking/mastery-level-utils-mock-tests.ts` før den første testen. Testen er allerede skrevet, men feiler hvis du ikke kjører den på en mandag.
+💡 `getMasteryLevel` som vi vil teste bruker `getTodaysDate` i `src/utils/date-utils` for å hente ut dagens dato. Bruk `jest.mock` for å ta kontroll over hele `date-utils` modulen og mock `getTodaysDate()` funksjonen.
+`jest.mock` skal brukes i test modulen `src/__tests__/mocking/weekly-workload-utils-mock-tests.ts` før den første testen. Testen er allerede skrevet, men feiler hvis du ikke kjører den på en mandag.
 For å få testen til å fungere, skal vi mocke `getTodaysDate` i `src/utils/date-utils` slik at den returnerer "Monday".
 
 💡 Tips: `jest.mock` fungerer slik:
@@ -408,7 +408,7 @@ jest.mock("relative/path/to/the/modul/you/want/to/control", () => {
 ```js
 jest.mock("../../utils/date-utils", () => {
   return {
-    getTodaysDate: jest.fn((lang: string) => "Monday"),
+    getTodaysDate: jest.fn(() => "Monday"),
   };
 });
 ```
