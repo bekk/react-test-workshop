@@ -371,7 +371,7 @@ test("TodoList should show the list given as input", () => {
   expect(item2).toBeInTheDocument();
 
   const items = getAllByRole("listitem");
-  expect(items.length).toBe(2);
+  expect(items).toHaveLength(2);
 });
 ```
 

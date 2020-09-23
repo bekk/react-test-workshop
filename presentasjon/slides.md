@@ -23,61 +23,182 @@ Egenskaper av en god test
 - Uavhengig av implementasjon i koden som testes
 - Self-Checking (suksess ✅ eller feil ❌)
 
----
-
-## Testing av React komponenter
+Note: enklere at refaktorere kode, dytter deg mot beste praksis for universell utforming, fokuserer på brukeren. Bibliotek som `@testing-library/react` hjelper deg med å skrive gode tester, og gjør det vanskelig å skrive dårlige tester
 
 ---
 
-### React testing library
+### Et eksempel
 
-> The @testing-library family of packages helps you test UI components in a user-centric way.
+En enkel tellere:
 
 ```JSX
-import React from "react";
-import { render } from "@testing-library/react";
-
-test("paragraph renders text", () => {
-  const { getByText } = render(
-    <p>Välkommen!</p>
-  );
-  const paragraph = getByText(/välkommen/i);
-  expect(paragraph).toBeInTheDocument();
-});
+function Counter() = {
+  const [count, setCount] = useState(0);
+  return {
+    <div>
+      <p>Current count: {count}</p>
+      <button onClick={setCount(count+1)} >+</button>
+    </div>
+  }
+}
 
 ```
 
-Note: speaker notes FTW!
+Test:
+
+```JSX
+test("standardverdi for telleren er 0", () => {
+  const { getByText } = render(Counter);
+  const count = getByText("Current count: 0");
+  expect(count).toBeInTheDocument();
+});
+```
+
+---
+
+### Et annet eksempel
+
+En enkel tellere:
+
+```JSX
+function Counter() = {
+  const [count, setCount] = useState(0);
+  return {
+    <div>
+      <p>Current count: {count}</p>
+      <button onClick={setCount(count+1)} >+</button>
+    </div>
+  }
+}
+
+```
+
+Test:
+
+```JSX
+test("telleren skal øke med en når den klikkes", () => {
+  const { getByText, getByRole } = render(Counter);
+  expect(getByText("Current count: 0")).toBeInTheDocument();
+
+  const button = getByRole("button", {name: "+"});
+  userEvent.click(button);
+  expect(getByText("Current count: 1")).toBeInTheDocument();
+});
+```
+
+---
+
+### Noen viktige funksjoner
+
+- `render`
+- `userEvent`
+- `expect`
+
+```JSX
+test("sjekk at teksten vinker", () => {
+  const { getByText } = render(<p>Hej!👋</p>); // <-- render
+  const tekst = getByText(/hej/i); // <-- query eksponert av render
+  userEvent.click(tekst); // <-- userEvent
+  expect(tekst).toBeInTheDocument(); // <-- expect
+});
+```
 
 ---
 
 ### render
 
 ```JSX
-const {/\* \*/} = render(Component):
+import { render } from "@testing-library/react";
+
+const { container, getByText, etc... } = render(Component):
 ```
 
-- all the queries from DOM Testing Library
+- render eksponerer alle queries som kan brukes for å finne elementer i `document.body`.
 
-  - ByText
-  - ByLabelText
-  - ByPlaceholderText
-  - ByTestId
-  - ...
+```jsx
+const { getByText, getByRole, ... } = render(Component):
+const input = getByRole("input");
+const button = getByRole("button", {name: /klikk her/i});
+const listElements = getAllByRole("listitem");
+const label = getByText("Vem er du?");
+const input = getByLabelText("Vem er du?");
+```
 
-- container reference to the DOM node where the component is mounted
+- og `container` som er en referens til DOM-noden der komponenten finnes
+
+- etc..
 
 ---
 
 ### jest expect
 
-- test
+- Brukes for å evaluere at resultatet er some forventet
 
-- `expect(result).toBe(expected)`
+- Testene feile og gi en god tilbakemelding hvis expect ikke innholder forventet verdi
+
+- Bruk ikke bare `.toBe` uten test å finne ut korrekt "matcher"
+
+```JSX
+expect(result).toBe(expected);
+expect(result).not.toBe(expected);
+expect(element).toBeInTheDocument();
+
+expect(result.value).toBe(expected);  ❌
+expect(result).toHaveValue(expected); ✅
+
+expect(result.length).toBe(expected);  ❌
+expect(result).toHaveLength(expected); ✅
+
+```
 
 ---
 
-### fire event
+### user Event 👴
+
+- `userEvent` simulerer noen som bruker komponenten
+
+```JSX
+test("typing in the input should change its value", () => {
+  const { getByRole } = render(<input type="checkbox" />);
+
+  const checkbox = getByRole("checkbox");
+  expect(checkbox).toBeChecked();
+
+  userEvent.click(checkbox);
+  exect(checkbox).not.toBeChecked();
+});
+```
+
+API:
+
+```JSX
+userEvent.click(element)
+userEvent.type(element, text)
+userEvent.clear(element)
+etc...
+```
+
+---
+
+### Component testing Sammenfattet
+
+```JSX
+test("her tester jeg noe", () => {
+  // Legg til komponenten til dokument.body med render
+  // hent ut queries du trenger
+  const {debug, queries} = render(MinKomponent)
+  // Bruk debug() for å printe ut DOM:en når du skriver tester
+  debug()
+  // bruk en query, vanligvis getByRole, for at finne et element
+  const knapp = getByRole("button", {name: /knappenavn/i})
+  // Bruk userEvent for å samhandle med en del av komponenten
+  userEvent.click(knapp);
+  // Sjekk at resultatet er som forventet
+  // i dette tilfellet skulle noen tekst komme opp ved klikk
+  const tekst = getByText("Du vant da du klikket på knappen!")
+  expect(tekst).toBeInTheDocument();
+})
+```
 
 ---
 
