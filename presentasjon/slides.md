@@ -216,6 +216,8 @@ Disse eksterne ressursene skaper uforutsigtbarhet ved testing. Vi vil ikke at te
 
 > Mocking is the action of creating objects that mimic the behavior of real objects in controlled ways
 
+<span style="font-family:serif; font-style:italic; font-size:0.5em;">Kilde: "Mock object" - Wikipedia</span>
+
 ---
 
 ### Mocking med jest
