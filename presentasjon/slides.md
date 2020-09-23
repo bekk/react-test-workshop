@@ -135,21 +135,21 @@ Før vi ser på kode som bruker `fetch-mock` skal vi vise noen illustrasjoner so
 
 ##### Hvordan fungerer en React-app med en backend?
 
-![Skjema av en real-world React app](/img/mocking-schema-1.png)
+![Skjema av en real-world React app](https://github.com/bekk/react-test-workshop/raw/master/presentasjon/img/mocking-schema-1.png)
 En React app med avhengigheter til et eksternt API
 
 ---
 
 ##### Hvordan kjøres applikasjon lokalt?
 
-![Skjema av en real-world React app](/img/mocking-schema-2.png)
+![Skjema av en real-world React app](https://github.com/bekk/react-test-workshop/raw/master/presentasjon/img/mocking-schema-2.png)
 Todo-list sammen med _server.js_
 
 ---
 
 ##### Hvordan kan vi kjøre lokalt med en mock?
 
-![Skjema av en real-world React app](/img/mocking-schema-3.png)
+![Skjema av en real-world React app](https://github.com/bekk/react-test-workshop/raw/master/presentasjon/img/mocking-schema-3.png)
 Todo-list med mock
 
 ---
