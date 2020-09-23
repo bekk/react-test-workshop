@@ -1,6 +1,6 @@
 import { getTodaysDate } from "./date-utils";
 
-export const getWeeklyWorloadStatus = (completionRate: number): string => {
+export const getWeeklyWorkloadStatus = (completionRate: number): string => {
   const today = getTodaysDate();
 
   switch (today) {

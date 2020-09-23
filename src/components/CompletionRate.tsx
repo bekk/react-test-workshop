@@ -2,7 +2,7 @@ import { Todolist } from "domain/Todo";
 import React from "react";
 import { FunctionComponent, useEffect, useState } from "react";
 import { getCompletionRate } from "utils/completion-utils";
-import { getWeeklyWorloadStatus } from "utils/weekly-workload-utils";
+import { getWeeklyWorkloadStatus } from "utils/weekly-workload-utils";
 
 type CompletionRateProps = {
   todoList: Todolist;
@@ -15,7 +15,7 @@ const CompletionRate: FunctionComponent<CompletionRateProps> = (todoList) => {
   useEffect(() => {
     getCompletionRate().then((value) => {
       setCompletionRate(value);
-      setWeeklyWorkloadStatus(getWeeklyWorloadStatus(value));
+      setWeeklyWorkloadStatus(getWeeklyWorkloadStatus(value));
     });
   }, [todoList]);
 

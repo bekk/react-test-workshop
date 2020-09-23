@@ -385,11 +385,13 @@ Koden vi skriver er noen gang avhengig av ressurser vi ikke har kontroll på (uf
 
 En måte å teste koden som bruker en sånn ressurs er å _mocke_ den. Det vil si at vi erstatter den ressursen vi trenger med kode som oppfører seg likt.
 
-🏆 Funksjonen `getWeeklyWorloadStatus(completionRate: number)` i `src/utils/weekly-workload-utils` returnerer en enkel tekst som inneholder bl.a. dagens dato. Vi skal skrive en test som sjekker returverdi, uten å være avhengig av hvilken dag testen kjører.
+🏆 Funksjonen `getWeeklyWorkloadStatus(completionRate: number)` i `src/utils/weekly-workload-utils` returnerer en enkel tekst som på en veldig naiv måte (for oppgavensskyld) indikerer ukens arbeidsmengde i forhold til ukedag og antall _todos_ du har laget og fullført. Vi skal skrive en test som sjekker returverdi, uten å være avhengig av hvilken dag testen kjører.
 
-💡 `getMasteryLevel` som vi vil teste bruker `getTodaysDate` i `src/utils/date-utils` for å hente ut dagens dato. Bruk `jest.mock` for å ta kontroll over hele `date-utils` modulen og mock `getTodaysDate()` funksjonen.
-`jest.mock` skal brukes i test modulen `src/__tests__/mocking/weekly-workload-utils-mock-tests.ts` før den første testen. Testen er allerede skrevet, men feiler hvis du ikke kjører den på en mandag.
-For å få testen til å fungere, skal vi mocke `getTodaysDate` i `src/utils/date-utils` slik at den returnerer "Monday".
+💡 `getWeeklyWorkloadStatus` som vi vil teste bruker `getTodaysDate` i `src/utils/date-utils` for å hente ut dagens dato. Bruk `jest.mock` for å ta kontroll over hele `date-utils` modulen og mock `getTodaysDate()` funksjonen.
+`jest.mock` skal brukes i test modulen `src/__tests__/mocking/weekly-workload-utils-mock-tests.ts` før den første testen.
+
+Testen er allerede skrevet (og ikke aktivert med kommentar `/* */`). Når du fjerner kommentar skal den feile hvis du ikke kjører den på en mandag.
+For å få testen til å fungere, skal vi mocke `getTodaysDate` i `src/utils/date-utils` slik at den alltid returnerer "Monday".
 
 💡 Tips: `jest.mock` fungerer slik:
 
@@ -423,7 +425,8 @@ I denne oppgaveserien skal vi lære å "mocke" nettverkskall. Se gjerne på "Moc
 ### Oppgave 3a: skriv ferdig testen som sjekker `getCompletionRate()`
 
 🏆 Funksjonen `getCompletionRate()` i `src/utils/completion-utils` beregner en _completion rate_ av todos. Beregning er enkel: antall slettet / antall opprettet \* 100
-Funksjonen bruker to API-kall for hente `nbOfCreatedTodos` og `nbOfDeletedTodos`. Vi skal skrive en test som sjekker at beregningen er riktig.
+
+Funksjonen bruker to API-kall for å hente `nbOfCreatedTodos` og `nbOfDeletedTodos`. Vi skal skrive en test som sjekker at beregningen er riktig.
 
 💡 i `src/__tests__/mocking/completion-utils-fetchmock-tests.ts`, legg til kode som mocker de to API-kallene til `/stats/created` og `/stats/deleted` endepunktene slik at de returnerer en verdi som passer testens forventninger
 
