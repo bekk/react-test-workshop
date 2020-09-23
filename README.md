@@ -1,6 +1,6 @@
 # React test workshop
 
-Nå ska vi lære oss å teste React-kode!
+Nå ska vi lære oss å teste React-komponenter!
 
 ## Kom i gang
 
