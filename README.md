@@ -4,7 +4,7 @@ Nå ska vi lære oss å teste React-kode!
 
 ## Kom i gang
 
-Det finnes en tilhørende [presentasjon](https://bekk.github.io/react-test-workshop/#/) som kan være grei å se gjennom for å komme i gang med denne workshopen. Ellers er det bare å følge trinnene nedenfor for å komme i gang!
+Det finnes en tilhørende [presentasjon](https://bekk.github.io/react-test-workshop/#/) som det kan være greit å se gjennom for å komme i gang med denne workshopen. Ellers er det bare å følge trinnene nedenfor for å komme i gang!
 
 ### Dette må du ha før du starter
 
@@ -61,17 +61,17 @@ Kjører alle tester i "watch mode". Ved å trykke på `a`-tasten kjører alle te
 
 # Oppgaver
 
-💡 La applikasjonen kjøre mens jobber på oppgavene, [som beskrevet i denne seksjonen](#starte-applikasjonen). Vær oppmerksom på output i konsolen. Der vil du som regel få informasjon om det som eventuelt ikke fungerer.
+💡 La applikasjonen kjøre mens du jobber på oppgavene, [som beskrevet i denne seksjonen](#starte-applikasjonen). Vær oppmerksom på output i konsollen. Der vil du som regel få informasjon om det som eventuelt ikke fungerer.
 
-💡 Har du spørsmål? Stuck i oppgaven? Ta kontakt på Slack
+💡 Har du spørsmål? Stuck i oppgaven? Ta kontakt på Slack!
 
-## Oppgave 1: Testing React komponenter
+## Oppgave 1: Testing av React komponenter
 
 💡 Test-filene som brukes i oppgave 1 finner du i mappen `__tests__/basics/`.
 
 ### Oppgave 1a)
 
-🏆 Lage et test som bruker [render](https://testing-library.com/docs/react-testing-library/api#render) fra `@testing-library/react` for å teste at HTML-elementet `paragraph`. Bruk [getByText](https://testing-library.com/docs/react-testing-library/cheatsheet#text-match-options) for å finne paragraph-elementet som blir laget av `render` og sjekk at det finnes i dokumentet gjennom å bruke `expect(element).toBeInDocument()`.
+🏆 Lage en test som bruker [render](https://testing-library.com/docs/react-testing-library/api#render) fra `@testing-library/react` for å teste at HTML-elementet `p` finnes i DOMen. Bruk [getByText](https://testing-library.com/docs/react-testing-library/cheatsheet#text-match-options) for å finne p-elementet som blir laget av `render` og sjekk at det finnes i dokumentet gjennom å bruke `expect(element).toBeInDocument()`.
 
 <details>
  <summary>🚨 Løsning</summary>
@@ -93,7 +93,7 @@ test("paragraph renders with some text", () => {
 
 🏆 Bruk `render` for å teste en HTML-`button`. På samme måte som for paragraph, bruk en query (f.eks. `getByText`) for å sjekke at knappen har en tekst.
 
-💡 [Her](https://testing-library.com/docs/guide-which-query) kan du lese litt om hvilke queries skaperne bak DOM testing library anbefaller at man bruker.
+💡 [Her](https://testing-library.com/docs/guide-which-query) kan du lese litt om hvilke queries skaperne bak DOM testing library anbefaler at man bruker.
 
 <details>
  <summary>🚨 Løsning</summary>
@@ -117,7 +117,7 @@ test("button renders with some text", () => {
 
 🏆 Sjekk at `button` sin `onClick`-property fungerer. Når man klikker på knappen skal telleren `counter` øke med én.
 
-💡 For å simulere et klikk på knappen kan man bruke `fireEvent.click(element)` eller `userEvent.click(element)`.
+💡 For å simulere et klikk på knappen kan man bruke `fireEvent.click(element)` eller `userEvent.click(element)`. Disse to importerer man med `import { fireEvent, userEvent } from '@testing-library/react'`.
 
 <details>
  <summary>🚨 Løsning</summary>
@@ -149,7 +149,7 @@ test("button should call onClick when clicked", () => {
 
 💡 `userEvent.type(element, tekst)` kan brukes for å skrive en tekst i feltet.
 
-💡 `expect(element).toHaveValue()` kan brukes for å sjekke at `value` er som forventet.
+💡 `expect(element).toHaveValue("some value")` kan brukes for å sjekke at `value` er som forventet.
 
 <details>
  <summary>🚨 Løsning</summary>
@@ -169,7 +169,9 @@ test("typing in the input should change its value", () => {
 
 ### Oppgave 1e)
 
-🏆 Bruk `jest-axe` for å sjekke at input-feltet er UU-vennlig (accessible). Hvis noe er feil, fiks feilen!
+🏆 Bruk `jest-axe` for å sjekke at input-feltet er universelt utformet. Hvis noe er feil, fiks feilen!
+
+💡 Du kan lese om jest-axe i [dokumentasjonen](https://github.com/nickcolley/jest-axe)
 
 <details>
  <summary>🚨 Løsning</summary>
@@ -248,7 +250,7 @@ test("AddTodo should render title, label and input", () => {
 
 🏆 Sjekk at `AddTodo` innholder et input-felt og at verdiet blir oppdatert hvis man skriver noe i feltet.
 
-💡 Når man har funnit input-elementet med en query går det an å bruke `fireEvent.change()` eller `userEvent.type()` for å skrive noe i input-feltet.
+💡 Når man har funnet input-elementet med en query går det an å bruke `fireEvent.change()` eller `userEvent.type()` for å skrive noe i input-feltet.
 
 💡 `expect().toHaveValue` kan brukes for å sjekke verdien i input-feltet.
 
@@ -271,7 +273,7 @@ test("AddTodo should change its value when the user types something", () => {
 
 ### Oppgave 2c)
 
-🏆 Sjekk at `AddTodo` er accessible med `jest-axe`.
+🏆 Sjekk at `AddTodo` er universelt utformet med `jest-axe`.
 
 <details>
  <summary>🚨 Løsning</summary>
@@ -313,7 +315,7 @@ test("TodoList should render with the title 'List'", () => {
 
 ### Oppgave 2e)
 
-🏆 Sjekk at `TodoList` er UU-vennlig med `jest-axe` og fiks eventuelle feil.
+🏆 Sjekk at `TodoList` er universelt utformet med `jest-axe` og fiks eventuelle feil.
 
 💡 I stedet for `todoList={[]`, bruk følgende liste som props `todoList={list}`:
 
@@ -348,7 +350,7 @@ test("TodoList is accessible", async () => {
 
 🏆 Sjekk at `TodoList` viser riktig antall elementer i listen.
 
-💡 Bruk samme liste som i steget over ved render av `TodoList`. Querien `getAllByRole("listitem)"` kan brukes for å hente hjem alle `<li>`-elementer i containeren.
+💡 Bruk samme liste som i steget over ved render av `TodoList`. Querien `getAllByRole("listitem")` kan brukes for å hente alle `<li>`-elementer i containeren.
 
 <details>
  <summary>🚨 Løsning</summary>
@@ -383,10 +385,10 @@ Koden vi skriver er noen gang avhengig av ressurser vi ikke har kontroll på (uf
 
 En måte å teste koden som bruker en sånn ressurs er å _mocke_ den. Det vil si at vi erstatter den ressursen vi trenger med kode som oppfører seg likt.
 
-🏆 Funksjonen `getMasteryLevel(completionRate: number, lang: string)` i `src/utils/mastery-level-utils` returnerer en enkel tekst som inneholder bl.a. dagensdato. Vi skal skrive en test som sjekker retur verdi, uten å være avhengig av hvilken dag testen kjører.
+🏆 Funksjonen `getMasteryLevel(completionRate: number, lang: string)` i `src/utils/mastery-level-utils` returnerer en enkel tekst som inneholder bl.a. dagens dato. Vi skal skrive en test som sjekker returverdi, uten å være avhengig av hvilken dag testen kjører.
 
-💡 `getMasteryLevel` som vi vil teste bruker `getTodaysDate` i `src/utils/date-utils` for å hente ut dagensdato. Bruk `jest.mock` for å ta kontroll over hele `date-utils` modul og mock `getTodaysDate(lang: string)` funksjonen.
-`jest.mock` skal brukes i test modul `src/__tests__/mocking/mastery-level-utils-mock-tests.ts` før den første testen. Testen er allerde skrevet, men feiler hvis du ikke kjører den på en mandag.
+💡 `getMasteryLevel` som vi vil teste bruker `getTodaysDate` i `src/utils/date-utils` for å hente ut dagens dato. Bruk `jest.mock` for å ta kontroll over hele `date-utils` modulen og mock `getTodaysDate(lang: string)` funksjonen.
+`jest.mock` skal brukes i test modulen `src/__tests__/mocking/mastery-level-utils-mock-tests.ts` før den første testen. Testen er allerede skrevet, men feiler hvis du ikke kjører den på en mandag.
 For å få testen til å fungere, skal vi mocke `getTodaysDate` i `src/utils/date-utils` slik at den returnerer "Monday".
 
 💡 Tips: `jest.mock` fungerer slik:
@@ -416,14 +418,14 @@ jest.mock("../../utils/date-utils", () => {
 
 ## Oppgave 3: Mock nettverk kall med `fetch-mock`
 
-I denne oppgaveserien skal vi lære å "mocke" nettverk kall. Se gjerne på "Mocking" i tilhørende [presentasjon](https://joakimgy.github.io/react-test-workshop/#/) om du ikke har gjort det enda.
+I denne oppgaveserien skal vi lære å "mocke" nettverkskall. Se gjerne på "Mocking" i tilhørende [presentasjon](https://joakimgy.github.io/react-test-workshop/#/) om du ikke har gjort det enda.
 
 ### Oppgave 3a: skriv ferdig testen som sjekker `getCompletionRate()`
 
-🏆 Funksjonen `getCompletionRate()` i `src/utils/completion-utils` beregner en _completion rate_ av todos. Beregning er enkel: antall slettet / antall opprettet \* 100
-Funksjonen bruker to api kall for hente `nbOfCreatedTodos` og `nbOfDeletedTodos`. Vi skal skrive en test som sjekker at beregning er riktig.
+🏆 Funksjonen `getCompletionRate()` i `src/utils/completion-utils` beregner en _completion rate_ av todos. Beregning er enkel: antall slettet / antall opprettet *  100
+Funksjonen bruker to API-kall for hente `nbOfCreatedTodos` og `nbOfDeletedTodos`. Vi skal skrive en test som sjekker at beregningen er riktig.
 
-💡 i `src/__tests__/mocking/completion-utils-fetchmock-tests.ts` legg til kode som mocker de to api kall til `/stats/created` og `/stats/deleted` endepunkt slik at de returnerer en verdi som passer testens forventninger
+💡 i `src/__tests__/mocking/completion-utils-fetchmock-tests.ts`, legg til kode som mocker de to API-kallene til `/stats/created` og `/stats/deleted` endepunktene slik at de returnerer en verdi som passer testens forventninger
 
 💡 Bruk `fetch-mock` for å mocke hvert api kall. Biblioteket fungerer slik:
 
@@ -454,13 +456,12 @@ describe("Tests for getCompletionRate() function", () => {
 ```
 
 </details>
-<br/>
 
 ### Oppgave 3b: skriv en ny test som forbedrer implementasjon av `getCompletionRate()`
 
-Hvis ingen todo er opprettet enda, returnerer `getCompletionRate()` **NaN**. Vi ønsker å forbedre denne funksjonen slik at den returnerer **0** dersom `nbOfCreatedTodo` er null.
+Hvis ingen todo er opprettet enda, returnerer `getCompletionRate()` **NaN**. Vi ønsker å forbedre denne funksjonen slik at den returnerer **0** dersom `nbOfCreatedTodo` er `null`.
 
-Vi skal bruke _Test Driven Development_ metodikk og skrive testen før vi skriver implementasjonen. Testen skal først feile. Men etter vi legger til riktig implementasjon da skal være testen _grønn_.
+Vi skal bruke _Test Driven Development_ -metodikken og skrive testen før vi skriver implementasjonen. Testen skal først feile. Men etter vi legger til riktig implementasjon da skal være testen _grønn_.
 
 💡 I `src/__tests__/mocking/completion-utils-fetchmock-tests.ts`, legg til en test som sjekker at `getCompletionRate()` returnerer **0** dersom både kall til `/stats/created` og `/stats/deleted` returnerer **0**. Testen skal feile.
 
@@ -482,7 +483,6 @@ describe("Tests for getCompletionRate() function", () => {
 ```
 
 </details>
-<br/>
 
 💡 I `src/utils/completion-utils.ts`, oppdater `getCompletionRate()` så testen blir _grønn_
 
@@ -503,7 +503,7 @@ if (restStatisticNbOfCreatedTasks.data.value === 0) {
 
 Noen ganger vil vi bare kjøre applikasjonen og se "hvordan ting ser ut". Enten for å sjekke visuelt hvordan komponentene henger sammen eller bare for å ha en oversikt over slutt resultat.
 
-For å slippe å være avhengig av en eller en annen _third party_ kan vi spesifisere hvordan den tjenesten vi er avhengig av skal oppføre seg (våre forventninger).
+For å slippe å være avhengig av en eller en annen _tredjepart_ kan vi spesifisere hvordan den tjenesten vi er avhengig av skal oppføre seg (våre forventninger).
 Det er akkurat det vi skal gjøre her. Vi skal skrive kode som beskriver våre forventninger til backend tjenester som håndterer vår data (_todos_ og _statistics_)
 
 Vi har skrevet koden som gjør at alle kall til nettverk i vår applikasjon som bruker `fetch` skal gå gjennom `fetch-mock` bibliotek. `fetch-mock` skal _hijacke_ alle kall til nettverk (request og response). Vår oppgave blir da å skrive de responsene vi ønsker applikasjonen vår skal motta av nettverket.
@@ -513,9 +513,9 @@ I denne oppgaven skal du bare jobbe i denne filen: `source/mocking/mock.ts`
 Men først litt om hvordan ting henger sammen:
 
 For å aktivere mocking av nettverk må vi fortelle applikasjonen å ta i bruk koden i `mock.ts`.
-Vi gjør det ved å sette den `REACT_APP_MOCK` _environment variable_ til `true` i det applikasjonen starter. Da skal `mock.ts` bli aktivert og alle kall til nettverk går gjennom `fetch-mock`. Se gjerne på koden som aktiverer mock i `index.tsx` og kommandoen som starter applikasjonen i `package.json`
+Vi gjør det ved å sette den `REACT_APP_MOCK` _miljøvariabelen_ til `true` i det applikasjonen starter. Da skal `mock.ts` bli aktivert og alle kall til nettverket går gjennom `fetch-mock`. Se gjerne på koden som aktiverer mock i `index.tsx` og kommandoen som starter applikasjonen i `package.json`
 
-Stop og start applikasjon på nytt ved å gjøre som følgende
+Stopp og start applikasjon på nytt ved å gjøre følgende:
 
 - Gå til terminalen hvor du startet applikasjon med kommandoen `npm start`
   Bruk `Ctrl + c` for å stoppe prosessen
@@ -523,11 +523,11 @@ Stop og start applikasjon på nytt ved å gjøre som følgende
 
 Etter at applikasjonen kjører med mock aktivert trenger vi ikke lenger den lokale backend du har startet med `node server.js`. Gå til terminalen hvor backend kjører og bruk `Ctrl + c` for å stoppe prosessen.
 
-Nå kan vi dele oppgaven i bitter
+Nå kan vi dele oppgaven i biter:
 
 #### Oppgave 4a) Mocke GET `/todolist`
 
-🏆 Når applikasjonen starter sendes en GET request til `/todolist` som returnerer en liste av todos. Vi starter med å legge til flere todos i den todo lista.
+🏆 Når applikasjonen starter sendes en GET request til `/todolist` som returnerer en liste av todos. Vi starter med å legge til flere todos i den todo-lista.
 
 💡 Åpne `source/mocking/mock.ts`. Legg til flere todos i lista. Da skal alle todos du har lagt til dukke opp i applikasjonen.
 
@@ -557,11 +557,11 @@ fetchMock.get(
 
 #### Oppgave 4b) Mocke POST `/create/todo`
 
-🏆 Hvis du nå prøver å legge til eller fjerne en todd i applikasjonen vil det ikke fungere. Årsaken er at applikasjonen bruker flere endepunkter, og vi har ikke skrevet koden i `mock.ts` for å håndtere disse kallene enda. Dette skal vi gjøre nå.
+🏆 Hvis du nå prøver å legge til eller fjerne en todo i applikasjonen vil det ikke fungere. Årsaken er at applikasjonen bruker flere endepunkter, og vi har ikke skrevet koden i `mock.ts` for å håndtere disse kallene enda. Dette skal vi gjøre nå.
 
-OBS: alle nettverk kall applikasjonen gjør finnes i `src/api/api.ts`. Se gjerne på koden for å finne ut hvilket endepunkt er tatt i brukt for å opprette eller slette en todo.
+OBS: alle nettverkskall applikasjonen gjør finnes i `src/api/api.ts`. Se gjerne på koden for å finne ut hvilket endepunkt er tatt i brukt for å opprette eller slette en todo.
 
-💡 Vi jobber fortsatt i `source/mocking/mock.ts`. Skriv koden som håndterer den POST request til `/create/todo` som skal til for å legge til en todo. Test din mock ved å bruke `add` knappen i applikasjon.
+💡 Vi jobber fortsatt i `source/mocking/mock.ts`. Skriv koden som håndterer POST requests til `/create/todo` for å legge til en todo. Test mocken din ved å bruke `add`-knappen i applikasjonen.
 💡 For å kunne ta imot POST requests på `/create/todo` må vi bruke `post` metode i `fetch-mock`. Denne har en `opts` parameter som inneholder request body. Denne skal vi _parse_ for å hente data.
 
 ```js
@@ -571,7 +571,7 @@ fetchMock.post(
         const jsonObj = JSON.parse(opts.body as string);
         // her kan du konvertere jsonObj til en Todo
         return {
-            // her kan du returnere en Todolist som inneholder den samme Todo som du fikk i POST request
+            // her kan du returnere en Todolist som inneholder den samme Todo som du fikk i POST requestet
         }
         },
     {
@@ -607,7 +607,6 @@ fetchMock.post(
 ```
 
 </details>
-<br/>
 
 #### Oppgave 4c) Lage en litt smartere mock
 
