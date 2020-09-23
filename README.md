@@ -418,11 +418,11 @@ jest.mock("../../utils/date-utils", () => {
 
 ## Oppgave 3: Mock nettverk kall med `fetch-mock`
 
-I denne oppgaveserien skal vi lære å "mocke" nettverkskall. Se gjerne på "Mocking" i tilhørende [presentasjon](https://joakimgy.github.io/react-test-workshop/#/) om du ikke har gjort det enda.
+I denne oppgaveserien skal vi lære å "mocke" nettverkskall. Se gjerne på "Mocking" i tilhørende [presentasjon](https://bekk.github.io/react-test-workshop/#/) om du ikke har gjort det enda.
 
 ### Oppgave 3a: skriv ferdig testen som sjekker `getCompletionRate()`
 
-🏆 Funksjonen `getCompletionRate()` i `src/utils/completion-utils` beregner en _completion rate_ av todos. Beregning er enkel: antall slettet / antall opprettet *  100
+🏆 Funksjonen `getCompletionRate()` i `src/utils/completion-utils` beregner en _completion rate_ av todos. Beregning er enkel: antall slettet / antall opprettet \* 100
 Funksjonen bruker to API-kall for hente `nbOfCreatedTodos` og `nbOfDeletedTodos`. Vi skal skrive en test som sjekker at beregningen er riktig.
 
 💡 i `src/__tests__/mocking/completion-utils-fetchmock-tests.ts`, legg til kode som mocker de to API-kallene til `/stats/created` og `/stats/deleted` endepunktene slik at de returnerer en verdi som passer testens forventninger
