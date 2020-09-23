@@ -346,7 +346,7 @@ test("TodoList is accessible", async () => {
 
 </details>
 
-### Oppgave f)
+### Oppgave 2f)
 
 🏆 Sjekk at `TodoList` viser riktig antall elementer i listen.
 
@@ -377,7 +377,7 @@ test("TodoList should show the list given as input", () => {
 
 </details>
 
-## Oppgave 2: Mock en modul med `jest.mock`
+## Oppgave 3: Mock en modul med `jest.mock`
 
 Se gjerne på "Mocking" i tilhørende [presentasjon](https://bekk.github.io/react-test-workshop/#/) om du ikke har gjort det enda.
 
@@ -418,11 +418,11 @@ jest.mock("../../utils/date-utils", () => {
 </details>
 <br/>
 
-## Oppgave 3: Mock nettverk kall med `fetch-mock`
+## Oppgave 4: Mock nettverk kall med `fetch-mock`
 
 I denne oppgaveserien skal vi lære å "mocke" nettverkskall. Se gjerne på "Mocking" i tilhørende [presentasjon](https://bekk.github.io/react-test-workshop/#/) om du ikke har gjort det enda.
 
-### Oppgave 3a: skriv ferdig testen som sjekker `getCompletionRate()`
+### Oppgave 4a: skriv ferdig testen som sjekker `getCompletionRate()`
 
 🏆 Funksjonen `getCompletionRate()` i `src/utils/completion-utils` beregner en _completion rate_ av todos. Beregning er enkel: antall slettet / antall opprettet \* 100
 
@@ -460,7 +460,7 @@ describe("Tests for getCompletionRate() function", () => {
 
 </details>
 
-### Oppgave 3b: skriv en ny test som forbedrer implementasjon av `getCompletionRate()`
+### Oppgave 4b: skriv en ny test som forbedrer implementasjon av `getCompletionRate()`
 
 Hvis ingen todo er opprettet enda, returnerer `getCompletionRate()` **NaN**. Vi ønsker å forbedre denne funksjonen slik at den returnerer **0** dersom `nbOfCreatedTodo` er `null`.
 
@@ -502,7 +502,7 @@ if (restStatisticNbOfCreatedTasks.data.value === 0) {
 </details>
 <br/>
 
-## Oppgave 4: Lage en mock modul for å kjøre applikasjon lokalt uten avhengigheter
+## Oppgave 5: Lag en mock modul for å kjøre applikasjon lokalt uten avhengigheter
 
 Noen ganger vil vi bare kjøre applikasjonen og se "hvordan ting ser ut". Enten for å sjekke visuelt hvordan komponentene henger sammen eller bare for å ha en oversikt over slutt resultat.
 
@@ -530,7 +530,7 @@ Etter at applikasjonen kjører med mock aktivert trenger vi ikke lenger den loka
 
 Nå kan vi dele oppgaven i biter:
 
-#### Oppgave 4a) Mocke GET `/todolist`
+#### Oppgave 5a) Mocke GET `/todolist`
 
 🏆 Når applikasjonen starter sendes en GET request til `/todolist` som returnerer en liste av todos. Vi starter med å legge til flere todos i den todo-lista.
 
@@ -560,7 +560,7 @@ fetchMock.get(
 </details>
 <br/>
 
-#### Oppgave 4b) Mocke POST `/create/todo`
+#### Oppgave 5b) Mocke POST `/create/todo`
 
 🏆 Hvis du nå prøver å legge til eller fjerne en todo i applikasjonen vil det ikke fungere. Årsaken er at applikasjonen bruker flere endepunkter, og vi har ikke skrevet koden i `mock.ts` for å håndtere disse kallene enda. Dette skal vi gjøre nå.
 
@@ -614,7 +614,7 @@ fetchMock.post(
 
 </details>
 
-#### Oppgave 4c) Lage en litt smartere mock
+#### Oppgave 5c) Lage en litt smartere mock
 
 🏆 Hittil har vi hardkodet response GET og POST. Man hva kan vi gjøre for å gjøre applikasjonen enda mer brukbar med `mock.ts`
 
@@ -662,7 +662,7 @@ fetchMock.post(
 </details>
 <br/>
 
-#### Oppgave 4d) Implementere mock for de endepunkter vi mangler
+#### Oppgave 5d) Implementere mock for de endepunkter vi mangler
 
 🏆 Nå kan vi lage ferdig `mock.ts` ved å implementere mock _response_ for de endepunktene som gjenstår.
 

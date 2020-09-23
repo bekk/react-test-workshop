@@ -300,9 +300,9 @@ fetchMock.get(
 
 Vi bruker vi `fetch-mock` for to forskjellige hensikt i denne workshoppen
 
-👉 i **_oppgave 3_** skal du bruke `fetch-mock` for å kunne teste en funksjon som sender request til backend
+👉 i **_oppgave 4_** skal du bruke `fetch-mock` for å kunne teste en funksjon som sender request til backend
 
-👉 i **_oppgave 4_** ønsker vi å kjøre applikasjon lokalt uten `server.js`. Da skal du kode en mock med `fetch-mock` som "oppfører seg" som backend
+👉 i **_oppgave 5_** ønsker vi å kjøre applikasjon lokalt uten `server.js`. Da skal du kode en mock med `fetch-mock` som "oppfører seg" som backend
 
 ---
 
