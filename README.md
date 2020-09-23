@@ -683,7 +683,6 @@ fetchMock.post(
         todolistResponse.todoList = todolistResponse.todoList.filter(function (todo) {
             return todo.id !== todoIdToDelete;
         });
-        nbOfDeletedTodos++;
 
         return todolistResponse;
     },
@@ -697,7 +696,11 @@ fetchMock.post(
 <br/>
 
 💡 Til `/statistic/*` endepunktene skal du opprette andre globale variaber, som `nbOfCreatedTodos` og `nbOfDeletedTodos`.
-OBS: init verdi til `nbOfCreatedTodos` skal matche antall _todos_ i `todoList` ved init.
+
+OBS:
+
+- init verdi til `nbOfCreatedTodos` skal matche antall _todos_ i `todoList` ved init.
+- husk å inkrementere `nbOfCreatedTodos` i den mock som håndterer `/create/todo` og `nbOfDeletedTodos` i den mock som håndterer `/delete/todo`
 
 <details>
   <summary>🚨Løsning</summary>
@@ -710,7 +713,9 @@ const todolistResponse: Todolist = {
 let nbOfCreatedTodos = 1;
 let nbOfDeletedTodos = 0;
 
-// dine andre funksjoner for GET /todolist, POST create/todo og POST delete/todo ...
+// her kommer de andre mock du allerede har laget 👆for GET /todolist, POST create/todo og POST delete/todo
+//  legg til nbOfCreatedTodos++ i den mock for POST create/todo
+//  og nbOfDeletedTodos++ i den mock for POST delete/todo mock
 
 fetchMock.get(
   "express:/stats/created",
