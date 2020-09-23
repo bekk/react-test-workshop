@@ -1,4 +1,4 @@
-export const getTodaysDate = (lang: string): string => {
+export const getTodaysDate = (): string => {
   const days = [
     "Sunday",
     "Monday",
@@ -8,17 +8,8 @@ export const getTodaysDate = (lang: string): string => {
     "Friday",
     "Saturday",
   ];
-  const dager = [
-    "Mandag",
-    "Tirsdag",
-    "Onsdag",
-    "Torsdag",
-    "Fredag",
-    "Lørdag",
-    "Søndag",
-  ];
 
   const todaysDate = new Date();
 
-  return lang === "nb" ? dager[todaysDate.getDay()] : days[todaysDate.getDay()];
+  return days[todaysDate.getDay()];
 };

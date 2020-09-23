@@ -112,7 +112,7 @@ Kode 🧑🏿‍💻
 // og spesifiserer hva den skal returnere
 jest.mock("../../utils/date-utils", () => {
   return {
-    getTodaysDate: jest.fn((lang: string) => "Monday"),
+    getTodaysDate: jest.fn(() => "Monday"),
   };
 });
 // functionToTest() har avhengighet til getTodaysDate()
