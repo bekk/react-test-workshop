@@ -521,8 +521,8 @@ Vi gjør det ved å sette den `REACT_APP_MOCK` _miljøvariabelen_ til `true` i d
 Stopp og start applikasjon på nytt ved å gjøre følgende:
 
 - Gå til terminalen hvor du startet applikasjon med kommandoen `npm start`
-  Bruk `Ctrl + c` for å stoppe prosessen
-  Start applikasjon i mock modus ved å kjøre `npm run mock`
+- Bruk `Ctrl + c` for å stoppe prosessen
+- Start applikasjon i mock modus ved å kjøre `npm run mock`
 
 Etter at applikasjonen kjører med mock aktivert trenger vi ikke lenger den lokale backend du har startet med `node server.js`. Gå til terminalen hvor backend kjører og bruk `Ctrl + c` for å stoppe prosessen.
 
