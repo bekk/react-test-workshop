@@ -306,10 +306,4 @@ Vi bruker vi `fetch-mock` for to forskjellige hensikt i denne workshoppen
 
 ---
 
-## Åpne spørsmål
-
-- Hvordan tester ni frontend på projekt idag?
-
-- Test driven development?
-
-- Si noe om testing on commit
+## Lykke til med testing! 👊
