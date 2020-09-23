@@ -516,7 +516,9 @@ I denne oppgaven skal du bare jobbe i denne filen: `source/mocking/mock.ts`
 Men først litt om hvordan ting henger sammen:
 
 For å aktivere mocking av nettverk må vi fortelle applikasjonen å ta i bruk koden i `mock.ts`.
-Vi gjør det ved å sette den `REACT_APP_MOCK` _miljøvariabelen_ til `true` i det applikasjonen starter. Da skal `mock.ts` bli aktivert og alle kall til nettverket går gjennom `fetch-mock`. Se gjerne på koden som aktiverer mock i `index.tsx` og kommandoen som starter applikasjonen i `package.json`
+Vi gjør det ved å sette den `REACT_APP_MOCK` _miljøvariabelen_ til `true` i det applikasjonen starter med `npm run mock`. Da skal `mock.ts` bli aktivert og alle kall til nettverket går gjennom `fetch-mock`.
+
+Se gjerne på koden som aktiverer mock i `index.tsx` og `mock` scriptet som starter applikasjonen i `package.json`
 
 Stopp og start applikasjon på nytt ved å gjøre følgende:
 
@@ -565,6 +567,7 @@ fetchMock.get(
 OBS: alle nettverkskall applikasjonen gjør finnes i `src/api/api.ts`. Se gjerne på koden for å finne ut hvilket endepunkt er tatt i brukt for å opprette eller slette en todo.
 
 💡 Vi jobber fortsatt i `source/mocking/mock.ts`. Skriv koden som håndterer POST requests til `/create/todo` for å legge til en todo. Test mocken din ved å bruke `add`-knappen i applikasjonen.
+
 💡 For å kunne ta imot POST requests på `/create/todo` må vi bruke `post` metode i `fetch-mock`. Denne har en `opts` parameter som inneholder request body. Denne skal vi _parse_ for å hente data.
 
 ```js
