@@ -6,24 +6,35 @@ Bekk React faggruppe - September 2020
 
 ## Plan for workshop 📋
 
-- testing av React-komponenter
-- jest
-- react testing library
-- mocking med jest.mock og fetch-mock
+- Unit-testing med Jest ❌
+- Testing av React-komponenter ✅
+- End-to-end testing ❌
+
+Note: Jest, react testing library og mocking med jest.mock + fetch-mock
 
 ---
 
 ### Hva er en god test?
 
-Egenskaper av en god test
-
 - Rask
 - Isolert
 - Forutsigtbar og repeterbar
-- Uavhengig av implementasjon i koden som testes
+- Uavhengig av implementasjon
 - Self-Checking (suksess ✅ eller feil ❌)
 
-Note: enklere at refaktorere kode, dytter deg mot beste praksis for universell utforming, fokuserer på brukeren. Bibliotek som `@testing-library/react` hjelper deg med å skrive gode tester, og gjør det vanskelig å skrive dårlige tester
+Note: enklere å refaktorere kode, dytter deg mot beste praksis for universell utforming, fokuserer på brukeren. Bibliotek som `@testing-library/react` hjelper deg med å skrive gode tester, og gjør det vanskelig å skrive dårlige tester
+
+---
+
+### React testing library 🤩
+
+- Basert på DOM testing library
+- Tvinger brukeren til å teste på en høy nivå
+- Tester DOM i stedet for implementasjon
+- Henter ut HTMl-elementer fra DOM med queries
+- Lettere å refaktorer
+
+Note: Bruker queries for å hente ut HTML-elementer på samme måte som en bruker (finn input med hjelp av label, knapp og lenke med hjelp av tekst og type).
 
 ---
 
@@ -53,6 +64,8 @@ test("standardverdi for telleren er 0", () => {
   expect(count).toBeInTheDocument();
 });
 ```
+
+Note: toBeInTheDocument() trengs ikke, men gjer mye bedre feilmelding (getByTexct throwar error hvis det ikke finnes)
 
 ---
 
@@ -184,7 +197,7 @@ etc...
 
 ```JSX
 test("her tester jeg noe", () => {
-  // Legg til komponenten til dokument.body med render
+  // Legg til komponenten til document.body med render
   // hent ut queries du trenger
   const {debug, queries} = render(MinKomponent)
   // Bruk debug() for å printe ut DOM:en når du skriver tester
