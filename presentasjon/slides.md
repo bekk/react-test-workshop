@@ -9,6 +9,7 @@ Bekk React faggruppe - September 2020
 - Unit-testing med Jest ❌
 - Testing av React-komponenter ✅
 - End-to-end testing ❌
+- Mocking
 
 Note: Jest, react testing library og mocking med jest.mock + fetch-mock
 
