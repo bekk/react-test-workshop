@@ -1,6 +1,6 @@
 # React test workshop
 
-Nå ska vi lære oss å teste React-komponenter!
+Nå skal vi lære oss å teste React-kode!
 
 ## Kom i gang
 
@@ -16,10 +16,10 @@ For å komme i gang med workshopen må du ha `node` og `npm` installert. Her en 
 
 ### Starte applikasjonen
 
-1. Last ned repoet ved å kjøre `git clone https://github.com/joakimgy/react-test-workshop.git` i terminalen.
-2. Navigere til root-folderen i terminalen med `cd react-test-workshop`
-3. Starte backend gjennom kommandoen `node server.js`.
-4. I et annet terminalvindu, start frontend gjennom kommandoet `npm install` og deretter `npm start`.
+1. Last ned repoet ved å kjøre kommandoen `git clone https://github.com/joakimgy/react-test-workshop.git` i terminalen.
+2. Naviger til root-folderen ved å kjøre `cd react-test-workshop`
+3. Starte backend ved å kjøre `node server.js`.
+4. I et annet terminalvindu, start frontend ved å kjøre `npm install` og deretter `npm start`.
 5. I et tredje terminalvindu, kjør `npm test` for å kjøre igang testene i såkalt "watch mode" (at de kjøres på nytt hver gang du endrer noe).
 6. Åpne koden i din favoritteditor, naviger til `src/__tests__/` og følg instruksjonene derifra!
 
@@ -41,7 +41,7 @@ For å lagre todo-listen bruker vi en veldig enkel express server. Denne kan sta
 
 ## Scripts
 
-Her beskriver vi noen scripts som går å kjøre i terminalen hvis når man er i rotmappen (der man finner ´package.json´ ).
+Her beskriver vi noen scripts som man kan kjøre i terminalen når man er i rotmappen (der man finner ´package.json´ ).
 
 ### `npm install`
 
@@ -53,7 +53,7 @@ Starter applikasjonen på adressen [http://localhost:3000](http://localhost:3000
 
 ### `node server.js`
 
-Starter opp en express-backend som trengs for at bruke applikasjonen.
+Starter opp en express-backend som trengs for at applikasjonen skal kunne kjøre.
 
 ### `npm test`
 
@@ -91,7 +91,7 @@ test("paragraph renders with some text", () => {
 
 ### Oppgave 1b)
 
-🏆 Bruk `render` for å teste en HTML-`button`. På samme måte som for paragraph, bruk en query (f.eks. `getByText`) for å sjekke at knappen har en tekst.
+🏆 Bruk `render` for å teste en HTML-`button`. På samme måte som for paragraph(`p`), bruk en query (f.eks. `getByText`) for å sjekke at knappen har en tekst.
 
 💡 [Her](https://testing-library.com/docs/guide-which-query) kan du lese litt om hvilke queries skaperne bak DOM testing library anbefaler at man bruker.
 
@@ -117,7 +117,7 @@ test("button renders with some text", () => {
 
 🏆 Sjekk at `button` sin `onClick`-property fungerer. Når man klikker på knappen skal telleren `counter` øke med én.
 
-💡 For å simulere et klikk på knappen kan man bruke `fireEvent.click(element)` eller `userEvent.click(element)`. Disse to importerer man med `import { fireEvent, userEvent } from '@testing-library/react'`. Her anbefalles `userEvent` da API:en er mer leslig.
+💡 For å simulere et klikk på knappen kan man bruke `fireEvent.click(element)` eller `userEvent.click(element)`. Disse to importerer man med `import { fireEvent, userEvent } from '@testing-library/react'`. Her anbefales `userEvent` da APIet er mer leselig.
 
 <details>
  <summary>🚨 Løsning</summary>
@@ -227,7 +227,7 @@ test("input should be connected to a label", () => {
 
 🏆 Sjekk at komponenten `AddTodo` innholder en header, label og et input-felt.
 
-💡 Querien `getByLabelText` kan brukes for å sjekke at både `label` og `input`-feltene blir rendered. Hvis noe mangler vil querien gi error.
+💡 Querien `getByLabelText` kan brukes for å sjekke at både `label` og `input`-feltene blir rendret. Hvis noe mangler vil querien gi `error`.
 
 <details>
  <summary>🚨 Løsning</summary>
@@ -248,7 +248,7 @@ test("AddTodo should render title, label and input", () => {
 
 ### Oppgave 2b)
 
-🏆 Sjekk at `AddTodo` innholder et input-felt og at verdiet blir oppdatert hvis man skriver noe i feltet.
+🏆 Sjekk at `AddTodo` innholder et input-felt og at verdien blir oppdatert hvis man skriver noe i feltet.
 
 💡 Når man har funnet input-elementet med en query går det an å bruke `fireEvent.change()` eller `userEvent.type()` for å skrive noe i input-feltet.
 
@@ -350,7 +350,7 @@ test("TodoList is accessible", async () => {
 
 🏆 Sjekk at `TodoList` viser riktig antall elementer i listen.
 
-💡 Bruk samme liste som i steget over ved render av `TodoList`. Querien `getAllByRole("listitem")` kan brukes for å hente alle `<li>`-elementer i containeren.
+💡 Bruk samme liste som i steget over ved rendring av `TodoList`. Querien `getAllByRole("listitem")` kan brukes for å hente alle `<li>`-elementer i containeren.
 
 <details>
  <summary>🚨 Løsning</summary>
@@ -381,17 +381,17 @@ test("TodoList should show the list given as input", () => {
 
 Se gjerne på "Mocking" i tilhørende [presentasjon](https://bekk.github.io/react-test-workshop/#/) om du ikke har gjort det enda.
 
-Koden vi skriver er noen gang avhengig av ressurser vi ikke har kontroll på (uforutsigtbar) eller ikke kan få lett tak i (verdi av CPU bruk, dato, en fil, ...)
+Koden vi skriver er noen ganger avhengig av ressurser vi ikke har kontroll på (uforutsigtbar) eller ressurser som det ikke er enkelt å få tak i (verdi av CPU bruk, dato, en fil, ...)
 
 En måte å teste koden som bruker en sånn ressurs er å _mocke_ den. Det vil si at vi erstatter den ressursen vi trenger med kode som oppfører seg likt.
 
 🏆 Funksjonen `getWeeklyWorkloadStatus(completionRate: number)` i `src/utils/weekly-workload-utils` returnerer en enkel tekst som på en veldig naiv måte (for oppgavensskyld) indikerer ukens arbeidsmengde i forhold til ukedag og antall _todos_ du har laget og fullført. Vi skal skrive en test som sjekker returverdi, uten å være avhengig av hvilken dag testen kjører.
 
-💡 `getWeeklyWorkloadStatus` som vi vil teste bruker `getTodaysDate` i `src/utils/date-utils` for å hente ut dagens dato. Bruk `jest.mock` for å ta kontroll over hele `date-utils` modulen og mock `getTodaysDate()` funksjonen.
-`jest.mock` skal brukes i test modulen `src/__tests__/mocking/weekly-workload-utils-mock-tests.ts` før den første testen.
+💡 `getWeeklyWorkloadStatus`, som vi vil teste, bruker `getTodaysDate` i `src/utils/date-utils` for å hente ut dagens dato. Bruk `jest.mock` for å ta kontroll over hele `date-utils` modulen og mock `getTodaysDate()` funksjonen.
+`jest.mock` skal brukes i test modulen `src/__tests__/mocking/weekly-workload-utils-mock-tests.ts` før den første testen. 
 
-Testen er allerede skrevet (og ikke aktivert med kommentar `/* */`). Når du fjerner kommentar skal den feile hvis du ikke kjører den på en mandag.
-For å få testen til å fungere, skal vi mocke `getTodaysDate` i `src/utils/date-utils` slik at den alltid returnerer "Monday".
+Testen er allerede skrevet, men feiler hvis du ikke kjører den på en mandag. (Derfor har vi deaktivert den med en kommentar `/* */`)
+For å få testen til å fungere, må vi mocke `getTodaysDate` i `src/utils/date-utils` slik at den alltid returnerer "Monday".
 
 💡 Tips: `jest.mock` fungerer slik:
 
@@ -464,7 +464,7 @@ describe("Tests for getCompletionRate() function", () => {
 
 Hvis ingen todo er opprettet enda, returnerer `getCompletionRate()` **NaN**. Vi ønsker å forbedre denne funksjonen slik at den returnerer **0** dersom `nbOfCreatedTodo` er `null`.
 
-Vi skal bruke _Test Driven Development_ -metodikken og skrive testen før vi skriver implementasjonen. Testen skal først feile. Men etter vi legger til riktig implementasjon da skal være testen _grønn_.
+Vi skal bruke _Test Driven Development_ -metodikken og skrive testen før vi skriver implementasjonen. Testen skal først feile. Men etter vi legger til riktig implementasjon skal testen bli _grønn_.
 
 💡 I `src/__tests__/mocking/completion-utils-fetchmock-tests.ts`, legg til en test som sjekker at `getCompletionRate()` returnerer **0** dersom både kall til `/stats/created` og `/stats/deleted` returnerer **0**. Testen skal feile.
 
@@ -504,19 +504,19 @@ if (restStatisticNbOfCreatedTasks.data.value === 0) {
 
 ## Oppgave 5: Lag en mock modul for å kjøre applikasjon lokalt uten avhengigheter
 
-Noen ganger vil vi bare kjøre applikasjonen og se "hvordan ting ser ut". Enten for å sjekke visuelt hvordan komponentene henger sammen eller bare for å ha en oversikt over slutt resultat.
+Noen ganger vil vi bare kjøre applikasjonen for å se "hvordan ting ser ut". Enten for å sjekke hvordan komponentene _visuelt_ henger sammen, eller bare for å få en oversikt over sluttresultatet.
 
 For å slippe å være avhengig av en eller en annen _tredjepart_ kan vi spesifisere hvordan den tjenesten vi er avhengig av skal oppføre seg (våre forventninger).
-Det er akkurat det vi skal gjøre her. Vi skal skrive kode som beskriver våre forventninger til backend tjenester som håndterer vår data (_todos_ og _statistics_)
+Det er akkurat det vi skal gjøre her. Vi skal skrive kode som beskriver våre forventninger til backendtjenestene som håndterer vår data (_todos_ og _statistics_)
 
-Vi har skrevet koden som gjør at alle kall til nettverk i vår applikasjon som bruker `fetch` skal gå gjennom `fetch-mock` bibliotek. `fetch-mock` skal _hijacke_ alle kall til nettverk (request og response). Vår oppgave blir da å skrive de responsene vi ønsker applikasjonen vår skal motta av nettverket.
+Vi har skrevet koden som gjør at alle `fetch`-kall i applikasjon vår går gjennom `fetch-mock` biblioteket. `fetch-mock` skal _hijacke_ alle kall til nettverk (request og response). Vår oppgave blir da å skrive de responsene vi ønsker applikasjonen vår skal motta.
 
 I denne oppgaven skal du bare jobbe i denne filen: `source/mocking/mock.ts`
 
 Men først litt om hvordan ting henger sammen:
 
-For å aktivere mocking av nettverk må vi fortelle applikasjonen å ta i bruk koden i `mock.ts`.
-Vi gjør det ved å sette den `REACT_APP_MOCK` _miljøvariabelen_ til `true` i det applikasjonen starter med `npm run mock`. Da skal `mock.ts` bli aktivert og alle kall til nettverket går gjennom `fetch-mock`.
+For å aktivere mocking av nettverkskall må vi fortelle applikasjonen å ta i bruk koden i `mock.ts`.
+Dette kan vi oppnå ved å sette _miljøvariabelen_ `REACT_APP_MOCK` til å være `true` i det applikasjonen starter. Da skal `mock.ts` bli aktivert og alle kall til nettverket går gjennom `fetch-mock`. Se gjerne på koden som aktiverer mock (i `index.tsx`) og kommandoen som starter applikasjonen (i `package.json`)
 
 Se gjerne på koden som aktiverer mock i `index.tsx` og `mock` scriptet som starter applikasjonen i `package.json`
 
@@ -616,7 +616,7 @@ fetchMock.post(
 
 #### Oppgave 5c) Lage en litt smartere mock
 
-🏆 Hittil har vi hardkodet response GET og POST. Man hva kan vi gjøre for å gjøre applikasjonen enda mer brukbar med `mock.ts`
+🏆 Hittil har vi hardkodet response GET og POST. Men hva kan vi gjøre for at applikasjonen blir enda mer brukbar med `mock.ts`?
 
 💡 Du kan bruke en global variabel `todolist` som oppdateres ved GET og POST og initialiseres slik:
 
