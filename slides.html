@@ -18,22 +18,32 @@ Bekk React faggruppe - September 2020
 </script></section><section  data-markdown><script type="text/template">
 ## Plan for workshop 📋
 
-- testing av React-komponenter
-- jest
-- react testing library
-- mocking med jest.mock og fetch-mock
-</script></section><section  data-markdown><script type="text/template">
-### Hva er en god test?
+- Unit-testing med Jest ❌
+- Testing av React-komponenter ✅
+- End-to-end testing ❌
+- Mocking ✅
 
-Egenskaper av en god test
+<aside class="notes"><p>Jest, react testing library og mocking med jest.mock + fetch-mock</p>
+</aside></script></section><section  data-markdown><script type="text/template">
+### Hva er en god test?
 
 - Rask
 - Isolert
 - Forutsigtbar og repeterbar
-- Uavhengig av implementasjon i koden som testes
+- Uavhengig av implementasjon
 - Self-Checking (suksess ✅ eller feil ❌)
 
-<aside class="notes"><p>enklere at refaktorere kode, dytter deg mot beste praksis for universell utforming, fokuserer på brukeren. Bibliotek som <code>@testing-library/react</code> hjelper deg med å skrive gode tester, og gjør det vanskelig å skrive dårlige tester</p>
+<aside class="notes"><p>enklere å refaktorere kode, dytter deg mot beste praksis for universell utforming, fokuserer på brukeren. Bibliotek som <code>@testing-library/react</code> hjelper deg med å skrive gode tester, og gjør det vanskelig å skrive dårlige tester</p>
+</aside></script></section><section  data-markdown><script type="text/template">
+### React testing library 🤩
+
+- Basert på DOM testing library
+- Tvinger brukeren til å teste på en høy nivå
+- Tester DOM i stedet for implementasjon
+- Henter ut HTMl-elementer fra DOM med queries
+- Lettere å refaktorer
+
+<aside class="notes"><p>Bruker queries for å hente ut HTML-elementer på samme måte som en bruker (finn input med hjelp av label, knapp og lenke med hjelp av tekst og type).</p>
 </aside></script></section><section  data-markdown><script type="text/template">
 ### Et eksempel
 
@@ -61,7 +71,9 @@ test("standardverdi for telleren er 0", () => {
   expect(count).toBeInTheDocument();
 });
 ```
-</script></section><section  data-markdown><script type="text/template">
+
+<aside class="notes"><p>toBeInTheDocument() trengs ikke, men gjer mye bedre feilmelding (getByTexct throwar error hvis det ikke finnes)</p>
+</aside></script></section><section  data-markdown><script type="text/template">
 ### Et annet eksempel
 
 En enkel tellere:
@@ -180,7 +192,7 @@ etc...
 
 ```JSX
 test("her tester jeg noe", () => {
-  // Legg til komponenten til dokument.body med render
+  // Legg til komponenten til document.body med render
   // hent ut queries du trenger
   const {debug, queries} = render(MinKomponent)
   // Bruk debug() for å printe ut DOM:en når du skriver tester
