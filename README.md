@@ -117,7 +117,7 @@ test("button renders with some text", () => {
 
 🏆 Sjekk at `button` sin `onClick`-property fungerer. Når man klikker på knappen skal telleren `counter` øke med én.
 
-💡 For å simulere et klikk på knappen kan man bruke `fireEvent.click(element)` eller `userEvent.click(element)`. Disse to importerer man med `import { fireEvent, userEvent } from '@testing-library/react'`. Her anbefales `userEvent` da APIet er mer leselig.
+💡 For å simulere et klikk på knappen kan man bruke `fireEvent.click(element)` eller `userEvent.click(element)`. Disse to importerer man med `import { fireEvent } from '@testing-library/react'` og `import userEvent from "@testing-library/user-event";`. Her anbefales `userEvent` da APIet er mer leselig.
 
 <details>
  <summary>🚨 Løsning</summary>
