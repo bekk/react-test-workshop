@@ -1,6 +1,5 @@
 import React from "react";
 import { render, getByTitle } from "@testing-library/react";
-import InputWithLabel from "components/InputWithLabel";
 import { toHaveNoViolations, axe } from "jest-axe";
 import { AddTodo } from "components/AddTodo";
 import userEvent from "@testing-library/user-event";
