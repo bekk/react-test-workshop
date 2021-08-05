@@ -210,7 +210,7 @@ test("input should be connected to a label", () => {
     </div>
   );
 
-  const input = getByLabelText(/finish/i);
+  const input = getByLabelText(/connected/i);
   expect(input).toBeInTheDocument();
 });
 ```
@@ -388,7 +388,7 @@ En måte å teste koden som bruker en sånn ressurs er å _mocke_ den. Det vil s
 🏆 Funksjonen `getWeeklyWorkloadStatus(completionRate: number)` i `src/utils/weekly-workload-utils` returnerer en enkel tekst som på en veldig naiv måte (for oppgavensskyld) indikerer ukens arbeidsmengde i forhold til ukedag og antall _todos_ du har laget og fullført. Vi skal skrive en test som sjekker returverdi, uten å være avhengig av hvilken dag testen kjører.
 
 💡 `getWeeklyWorkloadStatus`, som vi vil teste, bruker `getTodaysDate` i `src/utils/date-utils` for å hente ut dagens dato. Bruk `jest.mock` for å ta kontroll over hele `date-utils` modulen og mock `getTodaysDate()` funksjonen.
-`jest.mock` skal brukes i test modulen `src/__tests__/mocking/weekly-workload-utils-mock-tests.ts` før den første testen. 
+`jest.mock` skal brukes i test modulen `src/__tests__/mocking/weekly-workload-utils-mock-tests.ts` før den første testen.
 
 Testen er allerede skrevet, men feiler hvis du ikke kjører den på en mandag. (Derfor har vi deaktivert den med en kommentar `/* */`)
 For å få testen til å fungere, må vi mocke `getTodaysDate` i `src/utils/date-utils` slik at den alltid returnerer "Monday".
